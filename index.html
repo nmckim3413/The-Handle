@@ -278,6 +278,7 @@
     <button onclick="showPage('rules',this)">Rulebook</button>
     <button onclick="showPage('track',this);loadWeather()">Track</button>
     <button onclick="showPage('info',this)">Info</button>
+    <button onclick="showPage('live',this)" style="color:var(--orange)">⬤ Live</button>
   </div>
 </nav>
 
@@ -608,6 +609,12 @@
     <div class="info-card"><h3>2026 Schedule</h3><p>May 16 · Jun 6 · Jul 18 · Aug 15 (double header) · Sep 12 · Oct 10 · Oct 31 (weather permitting)</p></div>
     <div class="info-card"><h3>TNT Nights</h3><p>Every Wednesday, weather permitting. Start date TBD. 9pm cutoff.</p></div>
     <div class="info-card"><h3>Safety Contact</h3><p>Safety is the top priority at The Handle. Announce any concerns immediately to Race Director Mad Mike Miller.</p></div>
+  </div>
+
+  <!-- LIVE TIMING -->
+  <div class="page" id="page-live">
+    <div class="sect-lbl" style="margin-bottom:14px">Live timing powered by LapMonitor</div>
+    <iframe src="https://lapmonitor.live/199025113" style="width:100%;height:80vh;min-height:500px;border:none;border-radius:10px;background:var(--asphalt-mid);display:block;" allowfullscreen></iframe>
   </div>
 
 </div></div>
