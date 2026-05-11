@@ -246,6 +246,46 @@
   .da-rating.ok { background: rgba(247,201,72,0.15); color: var(--yellow); border: 1px solid var(--yellow); }
   .da-rating.bad { background: rgba(204,34,34,0.15); color: #CC2222; border: 1px solid #CC2222; }
   @media(max-width:600px){ .wx-grid.four{ grid-template-columns: repeat(2,1fr); } }
+
+  /* DRIVER PROFILE */
+  .driver-card { cursor: pointer; }
+  .driver-card:hover { border-color: var(--orange); }
+  .prof-back { background: none; border: 1px solid var(--bdr); border-radius: 7px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text2); padding: 7px 14px; cursor: pointer; margin-bottom: 18px; display: inline-block; transition: all 0.12s; }
+  .prof-back:hover { color: var(--orange); border-color: var(--orange); }
+  .prof-hero { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 18px; background: var(--asphalt-mid); border: 1px solid var(--bdr); border-top: 3px solid var(--orange); border-radius: 12px; padding: 22px 22px 0; overflow: hidden; position: relative; }
+  .prof-num-wrap { flex-shrink: 0; display: flex; align-items: flex-end; justify-content: center; min-width: 80px; padding-bottom: 0; }
+  .prof-num-text { font-family: 'Barlow Condensed', sans-serif; font-size: 96px; font-weight: 900; line-height: 1; }
+  .prof-photo { width: 130px; height: 155px; object-fit: cover; object-position: top; border-radius: 8px 8px 0 0; flex-shrink: 0; border: 1px solid var(--bdr); border-bottom: none; }
+  .prof-photo-placeholder { width: 130px; height: 155px; background: var(--asphalt-light); border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center; color: var(--text2); font-size: 48px; flex-shrink: 0; }
+  .prof-name-block { flex: 1; padding-bottom: 20px; }
+  .prof-name { font-family: 'Barlow Condensed', sans-serif; font-size: 38px; font-weight: 900; text-transform: uppercase; color: var(--text); line-height: 1; }
+  .prof-nickname { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--orange); margin-top: 5px; }
+  .prof-meta { font-size: 13px; color: var(--text2); margin-top: 7px; line-height: 1.7; }
+  .prof-quote { font-style: italic; font-size: 19px; font-weight: 500; color: var(--text); line-height: 1.45; border-left: 3px solid var(--orange); padding: 12px 18px; background: var(--asphalt-mid); border-radius: 0 8px 8px 0; margin-bottom: 14px; }
+  .prof-bio { font-size: 14px; color: var(--text2); line-height: 1.75; margin-bottom: 4px; background: var(--asphalt-mid); border: 1px solid var(--bdr); border-radius: 10px; padding: 16px 18px; }
+  .prof-sect { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--text2); margin: 18px 0 10px; }
+  .prof-kv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+  .prof-kv { background: var(--asphalt-mid); border: 1px solid var(--bdr); border-radius: 8px; padding: 10px 14px; }
+  .kv-key { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); margin-bottom: 3px; }
+  .kv-val { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; text-transform: uppercase; color: var(--text); }
+  .prof-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 4px; }
+  .prof-stat { background: var(--asphalt-mid); border: 1px solid var(--bdr); border-radius: 8px; padding: 12px 10px; text-align: center; }
+  .prof-stat-n { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 900; color: var(--orange); line-height: 1; }
+  .prof-stat-l { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text2); margin-top: 4px; }
+  .prof-finish-row { display: flex; align-items: center; gap: 14px; padding: 9px 14px; border-radius: 8px; background: var(--asphalt-mid); border: 1px solid var(--bdr); margin-bottom: 6px; }
+  .prof-finish-pos { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 900; min-width: 36px; text-align: center; color: var(--text2); }
+  .prof-finish-pos.p1 { color: var(--orange); }
+  .prof-finish-pos.p2 { color: #aaa; }
+  .prof-finish-pos.p3 { color: #B8860B; }
+  .prof-finish-name { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; text-transform: uppercase; color: var(--text); }
+  .prof-finish-date { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  @media(max-width:600px) {
+    .prof-hero { flex-wrap: wrap; }
+    .prof-photo, .prof-photo-placeholder { width: 100px; height: 120px; }
+    .prof-stat-grid { grid-template-columns: repeat(2,1fr); }
+    .prof-kv-grid { grid-template-columns: 1fr; }
+    .prof-name { font-size: 28px; }
+  }
 </style>
 </head>
 <body>
@@ -611,6 +651,12 @@
     <div class="info-card"><h3>Safety Contact</h3><p>Safety is the top priority at The Handle. Announce any concerns immediately to Race Director Mad Mike Miller.</p></div>
   </div>
 
+  <!-- DRIVER PROFILE -->
+  <div class="page" id="page-profile">
+    <button class="prof-back" onclick="backToDrivers()">← All Drivers</button>
+    <div id="profile-content"><div class="loading">Loading</div></div>
+  </div>
+
   <!-- LIVE TIMING -->
   <div class="page" id="page-live">
     <div class="sect-lbl" style="margin-bottom:14px">Live timing powered by LapMonitor</div>
@@ -764,7 +810,7 @@ async function loadDrivers() {
       : isMailbox
       ? `<div class="d-name"><span style="color:#D4A800">${dr.name}</span></div>`
       : `<div class="d-name">${dr.name}</div>`;
-    return `<div class="driver-card">${numEl}<div>${nameEl}<div class="d-meta">${dr.wins} win${dr.wins!==1?'s':''} · ${dr.starts} start${dr.starts!==1?'s':''}</div><div class="d-badge${i===0&&dr.wins>0?' hot':''}">${i===0&&dr.wins>0?'Points leader':`P${i+1}`}</div></div></div>`;
+    return `<div class="driver-card" onclick="showDriverProfile('${dr.id}')">${numEl}<div>${nameEl}<div class="d-meta">${dr.wins} win${dr.wins!==1?'s':''} · ${dr.starts} start${dr.starts!==1?'s':''}</div><div class="d-badge${i===0&&dr.wins>0?' hot':''}">${i===0&&dr.wins>0?'Points leader':`P${i+1}`}</div></div></div>`;
   }).join('');
 }
 
@@ -1008,6 +1054,156 @@ async function loadWeather() {
   } catch(err) {
     el.innerHTML = `<div class="wx-loading">Could not load weather — check connection<br><span style="font-size:11px;opacity:0.5">${err.message}</span></div>`;
   }
+}
+
+function backToDrivers() {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-inner button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-drivers').classList.add('active');
+  document.querySelector('.nav-inner button[onclick*="\'drivers\'"]').classList.add('active');
+}
+
+const CUSTOM_NUMS = {
+  'Nolan McKim':   { src:'nolan7.png',      w:100, blend:'lighten' },
+  'Eric Peek':     { src:'eric11.png',       w:110, blend:'lighten' },
+  'Goose':         { src:'goose76.png',      w:110, blend:'lighten' },
+  'Connerz':       { src:'connerz72.png',    w:110, blend:'normal' },
+  'T Dirt':        { src:'tdirt418.png',     w:120, blend:'lighten' },
+  'Mad Mike':      { src:'madmike28.png',    w:120, blend:'lighten' },
+  'Tonka Tim':     { src:'tonkatim61.png',   w:110, blend:'normal' },
+  'Miller Lite':   { src:'millerlite13.png', w:110, blend:'normal' },
+  'Bowen':         { src:'bowen19.png',      w:110, blend:'lighten' },
+  'Zack':          { src:'zack30.png',       w:110, blend:'normal' },
+  'Tony Miletich': { src:'tony22.png',       w:110, blend:'normal' },
+  'Buiscut':       { src:'buiscut54.png',    w:110, blend:'normal' },
+  'East Gary':     { src:'eastgary88.png',   w:120, blend:'lighten' },
+  'Ronnie':        { src:'ronnie09.png',     w:120, blend:'normal' },
+  'Arthur Walstra':{ src:'arthur3.png',      w:100, blend:'normal' },
+};
+
+async function showDriverProfile(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-inner button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-profile').classList.add('active');
+  document.getElementById('profile-content').innerHTML = '<div class="loading">Loading</div>';
+
+  const [drivers, allResults, allRaces] = await Promise.all([
+    get('drivers', `select=*&id=eq.${id}`),
+    get('results', `select=*,races(name,round,race_date)&driver_id=eq.${id}&order=position.asc`),
+    get('races', 'select=*')
+  ]);
+  const dr = drivers[0];
+  if (!dr) { document.getElementById('profile-content').innerHTML = '<div class="empty">Driver not found</div>'; return; }
+
+  // Compute career stats
+  const starts = allResults.length;
+  const wins = allResults.filter(r=>r.position===1).length;
+  const podiums = allResults.filter(r=>r.position<=3).length;
+  const top5s = allResults.filter(r=>r.position<=5).length;
+  const winPct = starts ? Math.round(wins/starts*100) : 0;
+  const bestFinish = starts ? Math.min(...allResults.map(r=>r.position)) : '—';
+  const totalPts = allResults.reduce((s,r)=>s+(r.points||0),0);
+
+  // Current season (2026) stats
+  const s26 = allResults.filter(r => r.races?.race_date?.startsWith('2026'));
+  const s26starts = s26.length;
+  const s26wins = s26.filter(r=>r.position===1).length;
+  const s26pts = s26.reduce((s,r)=>s+(r.points||0),0);
+
+  // All drivers points for standings position
+  const allDrivers = await get('drivers','select=*');
+  const allRes2 = await get('results','select=*&season=eq.2026');
+  const ptsMap = {};
+  allDrivers.forEach(d=>{ ptsMap[d.id]=0; });
+  allRes2.forEach(r=>{ if(ptsMap[r.driver_id]!==undefined) ptsMap[r.driver_id]+=(r.points||0); });
+  const sortedPts = Object.values(ptsMap).sort((a,b)=>b-a);
+  const myPts = ptsMap[dr.id]||s26pts;
+  const standingPos = sortedPts.indexOf(myPts)+1 || '—';
+  const leader = sortedPts[0]||0;
+  const deficit = myPts < leader ? leader - myPts : 0;
+
+  // Top 5 finishes for display
+  const top5List = allResults.filter(r=>r.position<=5)
+    .sort((a,b)=>a.position-b.position)
+    .slice(0,10);
+
+  // Number graphic
+  const cn = CUSTOM_NUMS[dr.name.trim()];
+  const numHtml = cn
+    ? `<img src="${cn.src}" alt="#${dr.number}" style="max-width:${cn.w}px;max-height:110px;width:auto;height:auto;object-fit:contain;mix-blend-mode:${cn.blend};">`
+    : `<div class="prof-num-text" style="color:${dr.color||'#F26419'}">${dr.number}</div>`;
+
+  const photoHtml = dr.photo_url
+    ? `<img class="prof-photo" src="${dr.photo_url}" alt="${dr.name}" onerror="this.outerHTML='<div class=prof-photo-placeholder>🪖</div>'">`
+    : `<div class="prof-photo-placeholder">🪖</div>`;
+
+  const kv = (key, val) => val ? `<div class="prof-kv"><div class="kv-key">${key}</div><div class="kv-val">${val}</div></div>` : '';
+  const stat = (n, l) => `<div class="prof-stat"><div class="prof-stat-n">${n}</div><div class="prof-stat-l">${l}</div></div>`;
+  const posClass = p => p===1?'p1':p===2?'p2':p===3?'p3':'';
+
+  const equipFields = [
+    kv('Kart', dr.kart_make),
+    kv('Colors', dr.kart_colors),
+    kv('Sponsor', dr.sponsor),
+  ].filter(Boolean);
+
+  const profileFields = [
+    kv('Fav Condition', dr.fav_condition),
+    kv('Racing Style', dr.racing_style),
+    kv('Pre-Race Ritual', dr.pre_race_ritual),
+    kv('Biggest Rival', dr.biggest_rival),
+    kv('Career Highlight', dr.career_highlight),
+  ].filter(Boolean);
+
+  document.getElementById('profile-content').innerHTML = `
+    <div class="prof-hero">
+      <div class="prof-num-wrap">${numHtml}</div>
+      ${photoHtml}
+      <div class="prof-name-block">
+        <div class="prof-name">${dr.name}</div>
+        ${dr.nickname ? `<div class="prof-nickname">"${dr.nickname}"</div>` : ''}
+        <div class="prof-meta">
+          ${[dr.hometown, dr.age ? `Age ${dr.age}` : '', dr.occupation].filter(Boolean).join(' · ')}
+        </div>
+      </div>
+    </div>
+
+    ${dr.quote ? `<div class="prof-quote">"${dr.quote}"</div>` : ''}
+    ${dr.bio ? `<div class="prof-bio">${dr.bio}</div>` : ''}
+
+    ${equipFields.length ? `<div class="prof-sect">Equipment</div><div class="prof-kv-grid">${equipFields.join('')}</div>` : ''}
+    ${profileFields.length ? `<div class="prof-sect">Driver Profile</div><div class="prof-kv-grid">${profileFields.join('')}</div>` : ''}
+
+    <div class="prof-sect">Career Stats</div>
+    <div class="prof-stat-grid">
+      ${stat(starts,'Starts')}
+      ${stat(wins,'Wins')}
+      ${stat(podiums,'Podiums')}
+      ${stat(top5s,'Top 5s')}
+      ${stat(winPct+'%','Win Pct')}
+      ${stat(bestFinish,'Best Finish')}
+      ${stat(totalPts,'Career Pts')}
+    </div>
+
+    <div class="prof-sect">2026 Season</div>
+    <div class="prof-stat-grid">
+      ${stat(s26starts,'Starts')}
+      ${stat(s26wins,'Wins')}
+      ${stat(s26pts,'Points')}
+      ${stat(standingPos==='—'?'—':'P'+standingPos,'Standing')}
+      ${stat(deficit?'-'+deficit:'—','Pts Back')}
+    </div>
+
+    ${top5List.length ? `
+    <div class="prof-sect">Top Finishes</div>
+    ${top5List.map(r => {
+      const d = r.races?.race_date ? new Date(r.races.race_date+'T12:00:00').toLocaleDateString('en',{month:'short',day:'numeric',year:'numeric'}) : '';
+      return `<div class="prof-finish-row">
+        <div class="prof-finish-pos ${posClass(r.position)}">${r.position}</div>
+        <div><div class="prof-finish-name">${r.races ? `R${r.races.round} — ${r.races.name}` : 'Race'}</div><div class="prof-finish-date">${d}${r.lap_time ? ' · ' + r.lap_time : ''}</div></div>
+      </div>`;
+    }).join('')}` : ''}
+  `;
 }
 
 loadHome(); loadDrivers(); loadPoints(); loadSchedule(); loadRecords(); loadVideos();

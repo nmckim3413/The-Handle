@@ -87,6 +87,7 @@
     <button onclick="aShow('results',this)">Results</button>
     <button onclick="aShow('records',this)">Lap Records</button>
     <button onclick="aShow('videos',this)">Videos</button>
+    <button onclick="aShow('profiles',this)">Driver Profiles</button>
   </div>
 </nav>
 
@@ -183,6 +184,74 @@
       <div class="item-list">
         <div class="item-list-title">Current videos</div>
         <div id="video-list"><em style="color:var(--text2);font-size:13px">Loading...</em></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRIVER PROFILES -->
+  <div class="admin-page" id="ap-profiles">
+    <div class="card">
+      <div class="card-title">Edit Driver Profile</div>
+      <div class="form-grid full">
+        <div class="form-group">
+          <label>Select Driver</label>
+          <select id="prof-driver" onchange="loadProfileForm()"><option value="">Choose driver...</option></select>
+        </div>
+      </div>
+    </div>
+    <div id="prof-form-wrap" style="display:none">
+      <div class="card">
+        <div class="card-title">Identity</div>
+        <div class="form-grid">
+          <div class="form-group"><label>Nickname / Callsign</label><input id="pf-nickname" placeholder="The Iceman"></div>
+          <div class="form-group"><label>Hometown</label><input id="pf-hometown" placeholder="Westville, IN"></div>
+          <div class="form-group"><label>Age</label><input id="pf-age" type="number" placeholder="34"></div>
+          <div class="form-group"><label>Occupation</label><input id="pf-occupation" placeholder="Welder"></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Driver Quote</label><input id="pf-quote" placeholder="I don't race to finish, I race to win."></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Bio</label><input id="pf-bio" placeholder="Short paragraph about the driver..."></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Photo URL</label><input id="pf-photo_url" placeholder="https://...supabase.co/storage/..."></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Equipment</div>
+        <div class="form-grid">
+          <div class="form-group"><label>Kart Make / Model</label><input id="pf-kart_make" placeholder="2022 CRG Road Rebel"></div>
+          <div class="form-group"><label>Kart Colors</label><input id="pf-kart_colors" placeholder="Black & Orange"></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Sponsor</label><input id="pf-sponsor" placeholder="Self-sponsored"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Personality</div>
+        <div class="form-grid">
+          <div class="form-group"><label>Favorite Track Condition</label><input id="pf-fav_condition" placeholder="Tacky, grooved up"></div>
+          <div class="form-group"><label>Racing Style</label><input id="pf-racing_style" placeholder="Smooth and patient"></div>
+          <div class="form-group"><label>Pre-Race Ritual</label><input id="pf-pre_race_ritual" placeholder="Two Red Bulls and a prayer"></div>
+          <div class="form-group"><label>Biggest Rival</label><input id="pf-biggest_rival" placeholder="Mad Mike"></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Career Highlight</label><input id="pf-career_highlight" placeholder="Won the 2025 championship by 3 points"></div>
+        </div>
+      </div>
+      <div class="card" style="background:rgba(242,100,25,0.06);border-color:rgba(242,100,25,0.3)">
+        <div class="card-title" style="color:var(--orange)">Supabase SQL — Run Once</div>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:10px">Run this in your Supabase SQL editor to add the profile columns if you haven't already:</p>
+        <pre style="background:var(--bg3);border-radius:6px;padding:12px;font-size:11px;color:var(--text);overflow-x:auto;line-height:1.6">ALTER TABLE drivers
+  ADD COLUMN IF NOT EXISTS nickname text,
+  ADD COLUMN IF NOT EXISTS hometown text,
+  ADD COLUMN IF NOT EXISTS age integer,
+  ADD COLUMN IF NOT EXISTS occupation text,
+  ADD COLUMN IF NOT EXISTS quote text,
+  ADD COLUMN IF NOT EXISTS bio text,
+  ADD COLUMN IF NOT EXISTS photo_url text,
+  ADD COLUMN IF NOT EXISTS kart_make text,
+  ADD COLUMN IF NOT EXISTS kart_colors text,
+  ADD COLUMN IF NOT EXISTS sponsor text,
+  ADD COLUMN IF NOT EXISTS fav_condition text,
+  ADD COLUMN IF NOT EXISTS racing_style text,
+  ADD COLUMN IF NOT EXISTS pre_race_ritual text,
+  ADD COLUMN IF NOT EXISTS biggest_rival text,
+  ADD COLUMN IF NOT EXISTS career_highlight text;</pre>
+      </div>
+      <div style="margin-top:4px">
+        <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
       </div>
     </div>
   </div>
@@ -412,12 +481,54 @@
     loadVideoList();
   }
 
+  // DRIVER PROFILES
+  const PROF_FIELDS = ['nickname','hometown','age','occupation','quote','bio','photo_url','kart_make','kart_colors','sponsor','fav_condition','racing_style','pre_race_ritual','biggest_rival','career_highlight'];
+
+  async function loadProfileDriverSelect() {
+    const drivers = await db.get('drivers', 'select=*&order=name.asc');
+    const el = document.getElementById('prof-driver');
+    el.innerHTML = '<option value="">Choose driver...</option>' + drivers.map(d => `<option value="${d.id}">${d.name} (#${d.number})</option>`).join('');
+  }
+
+  async function loadProfileForm() {
+    const id = document.getElementById('prof-driver').value;
+    const wrap = document.getElementById('prof-form-wrap');
+    if (!id) { wrap.style.display='none'; return; }
+    const drivers = await db.get('drivers', `select=*&id=eq.${id}`);
+    const dr = drivers[0];
+    if (!dr) return;
+    PROF_FIELDS.forEach(f => {
+      const el = document.getElementById('pf-' + f);
+      if (el) el.value = dr[f] || '';
+    });
+    wrap.style.display = 'block';
+  }
+
+  async function saveProfile() {
+    const id = document.getElementById('prof-driver').value;
+    if (!id) { toast('Select a driver first', true); return; }
+    const data = {};
+    PROF_FIELDS.forEach(f => {
+      const el = document.getElementById('pf-' + f);
+      if (!el) return;
+      const v = el.value.trim();
+      data[f] = f === 'age' ? (v ? parseInt(v) : null) : (v || null);
+    });
+    await fetch(`${SUPABASE_URL}/rest/v1/drivers?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    toast('Profile saved!');
+  }
+
   // INIT
   populateSelects();
   loadDriverList();
   loadRaceList();
   loadRecordList();
   loadVideoList();
+  loadProfileDriverSelect();
 </script>
 </body>
 </html>
