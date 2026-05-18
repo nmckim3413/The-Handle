@@ -436,10 +436,9 @@
             <th class="nsc-hide-sm">WINS</th>
             <th class="nsc-hide-sm">TOP 5s</th>
             <th class="nsc-hide-sm">TOP 10s</th>
-            <th class="nsc-hide-sm">DNFs</th>
           </tr>
         </thead>
-        <tbody id="pts-body"><tr><td colspan="10"><div class="loading">Loading</div></td></tr></tbody>
+        <tbody id="pts-body"><tr><td colspan="9"><div class="loading">Loading</div></td></tr></tbody>
       </table>
     </div>
     <div class="sect-lbl" style="margin-top:8px;margin-bottom:12px">A-Main Championship Points</div>
@@ -940,12 +939,12 @@ async function loadPoints() {
   // Aggregate per-driver stats
   const stats = {};
   if (season === 2026) {
-    drivers.forEach(d => { stats[d.id] = {driver:d, total:0, starts:0, wins:0, top5:0, top10:0, dnfs:0}; });
+    drivers.forEach(d => { stats[d.id] = {driver:d, total:0, starts:0, wins:0, top5:0, top10:0}; });
   }
   results.forEach(r => {
     if (!stats[r.driver_id]) {
       const d = drivers.find(x => x.id === r.driver_id);
-      if (d) stats[d.id] = {driver:d, total:0, starts:0, wins:0, top5:0, top10:0, dnfs:0};
+      if (d) stats[d.id] = {driver:d, total:0, starts:0, wins:0, top5:0, top10:0};
     }
     if (stats[r.driver_id]) {
       const s = stats[r.driver_id];
@@ -954,7 +953,6 @@ async function loadPoints() {
       if (r.position === 1) s.wins++;
       if (r.position <= 5) s.top5++;
       if (r.position <= 10) s.top10++;
-      if (r.dnf === true) s.dnfs++;
     }
   });
 
@@ -965,7 +963,7 @@ async function loadPoints() {
   const tb = document.getElementById('pts-body');
   if (!sorted.length) {
     const msg = season === 2026 ? "Season hasn't started yet" : "No 2025 data found";
-    tb.innerHTML = '<tr><td colspan="10"><div class="empty">' + msg + '</div></td></tr>';
+    tb.innerHTML = '<tr><td colspan="9"><div class="empty">' + msg + '</div></td></tr>';
     return;
   }
 
@@ -987,7 +985,6 @@ async function loadPoints() {
       '<td class="nsc-hide-sm"><span class="nsc-stat">' + p.wins + '</span></td>' +
       '<td class="nsc-hide-sm"><span class="nsc-stat">' + p.top5 + '</span></td>' +
       '<td class="nsc-hide-sm"><span class="nsc-stat">' + p.top10 + '</span></td>' +
-      '<td class="nsc-hide-sm"><span class="nsc-stat">' + p.dnfs + '</span></td>' +
       '</tr>';
   }).join('');
 }
