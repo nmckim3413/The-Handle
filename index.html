@@ -82,6 +82,22 @@
   .leader-sub { font-size: 13px; color: var(--text2); margin-top: 3px; }
   .leader-badge { display: inline-block; margin-top: 6px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: var(--yellow); color: #412402; padding: 3px 9px; border-radius: 4px; }
 
+  /* TWO-PANEL HERO */
+  .hero-panels { display: flex; min-height: 180px; }
+  .hero-panel { flex: 1; padding: 22px 22px 20px; min-width: 0; }
+  .hp-left { border-top: 3px solid var(--orange); }
+  .hp-right { border-top: 3px solid var(--bdr); }
+  .hero-vdivider { width: 1px; background: var(--bdr); flex-shrink: 0; align-self: stretch; }
+  .hp-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--orange); margin-bottom: 12px; }
+  .hp-name { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 900; text-transform: uppercase; color: var(--text); line-height: 1.1; }
+  .hp-sub { font-size: 13px; color: var(--text2); margin-top: 5px; }
+  .hp-pts-badge { display: inline-block; margin-top: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: var(--orange); color: #fff; padding: 3px 10px; border-radius: 4px; }
+  .hp-round { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text2); margin-bottom: 4px; }
+  .hp-date-big { font-family: 'Barlow Condensed', sans-serif; font-size: 44px; font-weight: 900; color: var(--orange); line-height: 1; margin-bottom: 8px; }
+  .hp-race-name { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; text-transform: uppercase; color: var(--text); }
+  .hp-location { font-size: 12px; color: var(--text2); margin-top: 4px; }
+  .hp-countdown { display: inline-block; margin-top: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; background: rgba(242,100,25,0.12); border: 1px solid rgba(242,100,25,0.3); color: var(--orange); padding: 4px 10px; border-radius: 4px; }
+
   /* DRIVERS */
   .driver-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 8px; margin-bottom: 16px; }
   .driver-card { border: 1px solid var(--bdr); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; background: var(--asphalt-mid); transition: border-color 0.12s; }
@@ -183,6 +199,9 @@
     .next-race{flex-direction:column;align-items:flex-start;gap:8px}
     .season-tag{display:none}
     .pts-grid{grid-template-columns:repeat(2,1fr)}
+    .hero-panels{flex-direction:column}
+    .hero-vdivider{width:auto;height:1px}
+    .hp-date-big{font-size:36px}
   }
 
   .social-links { display: flex; align-items: center; gap: 10px; }
@@ -346,11 +365,10 @@
   <!-- HOME -->
   <div class="page active" id="page-home">
     <div class="hero">
-      <img class="hero-kart-bg" src="kart.jpg" alt="">
-      <div class="hero-top">
-        <div class="hero-label">Invitation Only · Backyard Dirt Oval</div>
-        <img class="hero-logo" src="logo.jpg" alt="YardKartz">
-        <div class="hero-desc">Fair, Fast, and Fun backyard kart racing. The Handle. Westville, IN. You know if you're invited.</div>
+      <div class="hero-panels">
+        <div class="hero-panel hp-left" id="home-winner"><div class="loading">Loading</div></div>
+        <div class="hero-vdivider"></div>
+        <div class="hero-panel hp-right" id="home-nextrace"><div class="loading">Loading</div></div>
       </div>
       <div class="stat-row">
         <div class="stat-box"><div class="stat-n" id="sc-drivers">—</div><div class="stat-l">Drivers</div></div>
@@ -358,7 +376,6 @@
         <div class="stat-box"><div class="stat-n">8</div><div class="stat-l">Rounds in '26</div></div>
       </div>
     </div>
-    <div id="home-next"></div>
     <div class="sect-lbl" id="lbl-results" style="display:none">Last race</div>
     <div id="home-results"></div>
     <div class="sect-lbl" id="lbl-leader" style="display:none">Points leader</div>
@@ -746,30 +763,90 @@ async function loadHome() {
     get('races','select=*&order=race_date.asc'),
     get('results','select=*,drivers(name,number)&season=eq.2026&order=position.asc')
   ]);
+
   document.getElementById('sc-drivers').textContent = drivers.length||'0';
   const past = races.filter(r=>r.status==='past');
   document.getElementById('sc-races').textContent = past.length||'0';
 
-  const next = races.find(r=>r.status==='upcoming');
-  if (next) {
-    const d = new Date(next.race_date+'T12:00:00');
-    document.getElementById('home-next').innerHTML = `
-      <div class="next-race">
-        <div><div class="next-lbl">Next Race Up</div><div class="next-name">Round ${next.round} — ${next.name}</div></div>
-        <div class="next-date">${d.toLocaleString('en',{month:'short'}).toUpperCase()} ${d.getDate()}<span>2026</span></div>
-      </div>`;
-  }
+  const customNums = {
+    'Nolan McKim':    { src:'nolan7.png',       w:52, blend:'lighten' },
+    'Eric Peek':      { src:'eric11.png',        w:58, blend:'lighten' },
+    'Goose':          { src:'goose76.png',        w:58, blend:'lighten' },
+    'Connerz':        { src:'connerz72.png',      w:58, blend:'normal'  },
+    'T Dirt':         { src:'tdirt418.png',       w:64, blend:'lighten' },
+    'Mike Miller':    { src:'madmike28.png',      w:64, blend:'lighten' },
+    'Tonka Tim':      { src:'tonkatim61.png',     w:58, blend:'normal'  },
+    'Miller Lite':    { src:'millerlite13.png',   w:58, blend:'normal'  },
+    'Bowen':          { src:'bowen19.png',        w:58, blend:'lighten' },
+    'Zack':           { src:'zack30.png',         w:58, blend:'normal'  },
+    'Tony Miletich':  { src:'tony22.png',         w:58, blend:'normal'  },
+    'Buiscut':        { src:'buiscut54.png',      w:58, blend:'normal'  },
+    'East Gary':      { src:'eastgary88.png',     w:64, blend:'lighten' },
+    'Ronnie':         { src:'ronnie09.png',       w:64, blend:'normal'  },
+    'Arthur Walstra': { src:'arthur3.png',        w:52, blend:'normal'  },
+    'Shawn Toczek':   { src:'shawn65.png',        w:58, blend:'normal'  },
+    'Cole':           { src:'cole96.png',         w:64, blend:'normal'  },
+    'John Nimetz':    { src:'john29.png',         w:58, blend:'normal'  },
+    'Royce':          { src:'royce77.png',        w:64, blend:'lighten' },
+    'Maxzilla':       { src:'maxzilla56.png',     w:64, blend:'normal'  },
+    'Jordan Sculley': { src:'jordan23.png',       w:64, blend:'normal'  },
+    'Cole V':         { src:'colev25.png',        w:64, blend:'normal'  },
+    'Matthew Deyoung':{ src:'matthew51.png',      w:58, blend:'lighten' },
+  };
 
+  // LEFT PANEL — last race winner
   const last = [...past].sort((a,b)=>new Date(b.race_date)-new Date(a.race_date))[0];
+  const winEl = document.getElementById('home-winner');
   if (last) {
+    const winResult = results.find(r => r.race_id === last.id && r.position === 1);
+    const winDriver = winResult ? drivers.find(d => d.id === winResult.driver_id) : null;
+    if (winDriver) {
+      const cn = customNums[winDriver.name.trim()];
+      const numEl = cn
+        ? `<img src="${cn.src}" alt="${winDriver.number}" style="max-height:70px;width:auto;object-fit:contain;mix-blend-mode:${cn.blend};display:block;margin-bottom:10px;">`
+        : `<div style="font-family:'Barlow Condensed',sans-serif;font-size:72px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:10px">${winDriver.number}</div>`;
+      const ld = new Date(last.race_date+'T12:00:00');
+      const lmo = ld.toLocaleString('en',{month:'long'}).toUpperCase();
+      winEl.innerHTML = `
+        <div class="hp-lbl">Last Race Winner</div>
+        ${numEl}
+        <div class="hp-name">${winDriver.name}</div>
+        <div class="hp-sub">R${last.round} — ${last.name} · ${lmo} ${ld.getDate()}</div>
+        <div class="hp-pts-badge">${winResult.points || 35} pts earned</div>`;
+    } else {
+      winEl.innerHTML = `<div class="hp-lbl">Last Race Winner</div><div style="color:var(--text2);font-size:14px;padding-top:12px">No results yet</div>`;
+    }
     const lr = results.filter(r=>r.race_id===last.id).slice(0,5);
     if (lr.length) {
       document.getElementById('lbl-results').style.display='block';
       document.getElementById('lbl-results').textContent=`Last race — R${last.round} ${last.name}`;
       document.getElementById('home-results').innerHTML=`<div class="tbl-wrap"><table class="tbl"><thead><tr><th style="width:50px">Pos</th><th>Driver</th><th>Lap Time</th></tr></thead><tbody>${lr.map((r,i)=>`<tr><td><span class="${pc(i)}">${r.position}</span></td><td>${r.drivers?.name||'—'}</td><td><span class="laptime">${r.lap_time||'—'}</span></td></tr>`).join('')}</tbody></table></div>`;
     }
+  } else {
+    winEl.innerHTML = `<div class="hp-lbl">Last Race Winner</div><div style="color:var(--text2);font-size:14px;padding-top:12px">Season hasn't started</div>`;
   }
 
+  // RIGHT PANEL — next race with countdown
+  const next = races.find(r=>r.status==='upcoming');
+  const nextEl = document.getElementById('home-nextrace');
+  if (next) {
+    const nd = new Date(next.race_date+'T12:00:00');
+    const today = new Date(); today.setHours(0,0,0,0);
+    const days = Math.ceil((nd - today) / 86400000);
+    const nmo = nd.toLocaleString('en',{month:'long'}).toUpperCase();
+    const countdown = days > 0 ? `${days} days away` : days === 0 ? 'Race day!' : 'TBD';
+    nextEl.innerHTML = `
+      <div class="hp-lbl">Next Points Race</div>
+      <div class="hp-round">Round ${next.round}</div>
+      <div class="hp-date-big">${nmo} ${nd.getDate()}</div>
+      <div class="hp-race-name">${next.name}</div>
+      <div class="hp-location">The Handle · Westville, IN</div>
+      <div class="hp-countdown">${countdown}</div>`;
+  } else {
+    nextEl.innerHTML = `<div class="hp-lbl">Next Points Race</div><div style="color:var(--text2);font-size:14px;padding-top:12px">Schedule TBD</div>`;
+  }
+
+  // Points leader card (below hero)
   if (drivers.length && results.length) {
     const pointsByDriver = {};
     results.forEach(r => {
