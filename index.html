@@ -1497,13 +1497,15 @@ async function loadSponsors() {
     return;
   }
 
-  const presenting = sponsors.filter(s => s.tier === 'presenting');
-  const classSponsors = sponsors.filter(s => s.tier === 'class');
-  const supporting = sponsors.filter(s => s.tier === 'supporting' || s.tier === 'support');
+  const tier = s => (s.tier||'').toLowerCase();
+  const presenting = sponsors.filter(s => tier(s) === 'presenting');
+  const classSponsors = sponsors.filter(s => tier(s) === 'class');
+  const supporting = sponsors.filter(s => tier(s) === 'supporting' || tier(s) === 'support');
 
+  const imgSrc = s => s.logo_url && !s.logo_url.startsWith('http') ? s.logo_url : s.logo_url;
   const logoOrName = (s, imgClass, nameClass) =>
     s.logo_url
-      ? `<img src="${s.logo_url}" alt="${s.name}" class="${imgClass}" onerror="this.outerHTML='<div class=\\'${nameClass}\\'>${s.name}</div>'">`
+      ? `<img src="${imgSrc(s)}" alt="${s.name}" style="max-width:100%;object-fit:contain;display:block;margin:0 auto;" onerror="this.outerHTML='<div class=\\'${nameClass}\\'>${s.name}</div>'">`
       : `<div class="${nameClass}">${s.name}</div>`;
 
   let html = '';
