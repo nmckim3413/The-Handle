@@ -4,80 +4,86 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — The Handle</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --orange: #F26419; --yellow: #F7C948;
-    --asphalt: #1E1E1E; --asphalt-mid: #2A2A2A;
-    --bg: #f5f5f5; --bg2: #ffffff; --bg3: #eeeeee;
-    --text: #111111; --text2: #666666;
-    --bdr: #dddddd; --green: #2D8B45; --red: #C0392B;
+    --red: #AF332C; --yellow: #E5DE2B; --ink: #141414; --white: #FFFFFF;
+    --orange: #AF332C;
+    --text: #141414; --text2: #555555;
+    --bdr: #d0d0d0; --bg: #F5F5F5; --bg2: #FFFFFF; --bg3: #EEEEEE;
+    --asphalt: #141414; --asphalt-mid: #1e1e1e;
+    --green: #2D8B45; --red-comp: #C0392B;
   }
-  body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 22px 22px; color: var(--ink); min-height: 100vh; }
 
-  .admin-header { background: var(--asphalt); border-bottom: 3px solid var(--orange); padding: 0 20px; }
+  /* ADMIN HEADER */
+  .admin-header { background: var(--ink); border-bottom: 5px solid var(--yellow); padding: 0 20px; }
   .admin-header-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0 12px; }
-  .admin-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 900; color: var(--orange); text-transform: uppercase; letter-spacing: -0.5px; }
-  .admin-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); padding: 4px 10px; border-radius: 4px; }
-  .back-link { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.4); text-decoration: none; }
-  .back-link:hover { color: var(--orange); }
+  .admin-logo { font-family: 'Luckiest Guy', cursive; font-size: 28px; color: var(--yellow); }
+  .admin-badge { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; background: var(--red); color: var(--white); border: 2px solid var(--yellow); padding: 4px 10px; border-radius: 6px; }
+  .back-link { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); text-decoration: none; }
+  .back-link:hover { color: var(--yellow); }
 
-  .admin-nav { background: var(--asphalt-mid); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 0 20px; }
-  .admin-nav-inner { max-width: 800px; margin: 0 auto; display: flex; overflow-x: auto; }
-  .admin-nav-inner button { background: none; border: none; border-bottom: 3px solid transparent; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.45); padding: 11px 14px; cursor: pointer; transition: all 0.12s; white-space: nowrap; }
-  .admin-nav-inner button:hover { color: rgba(255,255,255,0.8); }
-  .admin-nav-inner button.active { color: var(--orange); border-bottom-color: var(--orange); }
+  /* ADMIN NAV */
+  .admin-nav { background: var(--ink); border-bottom: 3px solid var(--yellow); padding: 0 20px; }
+  .admin-nav-inner { max-width: 800px; margin: 0 auto; display: flex; overflow-x: auto; gap: 5px; padding: 8px 0 6px; }
+  .admin-nav-inner::-webkit-scrollbar { display: none; }
+  .admin-nav-inner button { background: transparent; border: 2px solid rgba(255,255,255,0.2); border-radius: 8px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.5); padding: 6px 13px; cursor: pointer; transition: all 0.1s; white-space: nowrap; box-shadow: none; }
+  .admin-nav-inner button:hover { color: var(--white); border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); }
+  .admin-nav-inner button.active { background: var(--red); color: var(--white); border-color: var(--yellow); box-shadow: 2px 2px 0 var(--yellow); }
 
+  /* MAIN */
   .admin-main { max-width: 800px; margin: 0 auto; padding: 24px 20px 48px; }
   .admin-page { display: none; }
   .admin-page.active { display: block; }
 
   /* CARDS */
-  .card { background: var(--bg2); border-radius: 10px; border: 1px solid var(--bdr); padding: 20px 22px; margin-bottom: 16px; }
-  .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; color: var(--text); border-bottom: 1px solid var(--bdr); padding-bottom: 10px; }
+  .card { background: var(--white); border-radius: 16px; border: 4px solid var(--ink); padding: 20px 22px; margin-bottom: 16px; box-shadow: 6px 6px 0 var(--ink); }
+  .card-title { font-family: 'Luckiest Guy', cursive; font-size: 16px; color: var(--ink); margin-bottom: 16px; border-bottom: 3px solid var(--ink); padding-bottom: 10px; }
 
   /* FORMS */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .form-grid.full { grid-template-columns: 1fr; }
   .form-group { display: flex; flex-direction: column; gap: 5px; }
-  .form-group label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); }
-  .form-group input, .form-group select { background: var(--bg); border: 1px solid var(--bdr); border-radius: 6px; padding: 9px 12px; font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--text); width: 100%; transition: border-color 0.12s; }
-  .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--orange); }
+  .form-group label { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #555; }
+  .form-group input, .form-group select { background: var(--bg); border: 3px solid var(--ink); border-radius: 8px; padding: 9px 12px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: var(--ink); width: 100%; transition: all 0.1s; }
+  .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--red); box-shadow: 3px 3px 0 var(--red); }
 
-  .btn { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 10px 20px; border: none; border-radius: 7px; cursor: pointer; transition: all 0.12s; }
-  .btn-primary { background: var(--orange); color: #fff; }
-  .btn-primary:hover { background: #d4551a; }
-  .btn-danger { background: none; border: 1px solid #ddd; color: var(--red); font-size: 12px; padding: 5px 10px; border-radius: 5px; }
-  .btn-danger:hover { background: var(--red); color: #fff; border-color: var(--red); }
+  /* BUTTONS */
+  .btn { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border: 3px solid var(--ink); border-radius: 8px; cursor: pointer; transition: all 0.1s; box-shadow: 3px 3px 0 var(--ink); }
+  .btn-primary { background: var(--red); color: var(--white); }
+  .btn-primary:hover { background: #8a2820; transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+  .btn-danger { background: var(--white); border: 2px solid #ddd; color: var(--red-comp); font-size: 12px; padding: 5px 10px; border-radius: 6px; box-shadow: 2px 2px 0 #ccc; }
+  .btn-danger:hover { background: var(--red); color: var(--white); border-color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
 
-  /* EXISTING LIST */
-  .item-list { margin-top: 16px; border-top: 1px solid var(--bdr); padding-top: 14px; }
-  .item-list-title { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text2); margin-bottom: 10px; }
-  .item-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 7px; background: var(--bg); border: 1px solid var(--bdr); margin-bottom: 6px; gap: 10px; }
-  .item-name { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; text-transform: uppercase; }
-  .item-meta { font-size: 12px; color: var(--text2); }
+  /* ITEM LIST */
+  .item-list { margin-top: 16px; border-top: 3px solid var(--ink); padding-top: 14px; }
+  .item-list-title { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #666; margin-bottom: 10px; }
+  .item-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 10px; background: var(--bg); border: 3px solid var(--ink); margin-bottom: 6px; gap: 10px; box-shadow: 3px 3px 0 var(--ink); }
+  .item-name { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; }
+  .item-meta { font-size: 12px; color: #666; font-weight: 700; }
 
   /* TOAST */
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--asphalt); color: #fff; padding: 12px 24px; border-radius: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.3s; z-index: 9999; border-left: 3px solid var(--orange); }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--ink); color: var(--yellow); padding: 12px 24px; border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.3s; z-index: 9999; border: 3px solid var(--yellow); box-shadow: 4px 4px 0 var(--yellow); }
   .toast.show { transform: translateX(-50%) translateY(0); }
-  .toast.error { border-left-color: var(--red); }
+  .toast.error { border-color: var(--red); color: var(--red); box-shadow: 4px 4px 0 var(--red); }
 
   @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
 
   /* IMPORT / EXPORT */
-  .btn-outline { background: none; border: 1px solid var(--bdr); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 10px 20px; border-radius: 7px; cursor: pointer; transition: all 0.12s; }
+  .btn-outline { background: var(--white); border: 3px solid var(--ink); color: var(--ink); font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border-radius: 8px; cursor: pointer; transition: all 0.1s; box-shadow: 3px 3px 0 var(--ink); }
   .btn-outline:hover { background: var(--bg3); }
-  .file-label { display: inline-flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 10px 20px; border: 1.5px solid var(--orange); border-radius: 7px; color: var(--orange); cursor: pointer; transition: all 0.12s; }
-  .file-label:hover { background: var(--orange); color: #fff; }
+  .file-label { display: inline-flex; align-items: center; gap: 8px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border: 3px solid var(--ink); border-radius: 8px; color: var(--red); cursor: pointer; transition: all 0.1s; box-shadow: 3px 3px 0 var(--ink); background: var(--white); }
+  .file-label:hover { background: var(--red); color: var(--white); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
   .preview-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
-  .preview-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); text-align: left; padding: 6px 10px; border-bottom: 2px solid var(--bdr); }
-  .preview-table td { padding: 7px 10px; border-bottom: 1px solid var(--bdr); vertical-align: top; }
-  .preview-table tr.row-error td { background: rgba(192,57,43,0.07); color: var(--red); }
-  .preview-table tr.row-warn td { background: rgba(247,201,72,0.08); }
-  .warning-box { background: rgba(247,201,72,0.1); border: 1px solid rgba(247,201,72,0.4); border-radius: 6px; padding: 12px 16px; margin-bottom: 12px; font-size: 13px; color: #7a5e00; }
-  .error-box { background: rgba(192,57,43,0.07); border: 1px solid rgba(192,57,43,0.3); border-radius: 6px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; color: var(--red); }
-  .success-box { background: rgba(45,139,69,0.08); border: 1px solid rgba(45,139,69,0.35); border-radius: 6px; padding: 12px 16px; font-size: 14px; color: var(--green); font-weight: 600; margin-bottom: 8px; }
+  .preview-table th { font-family: 'Luckiest Guy', cursive; font-size: 11px; color: var(--yellow); text-align: left; padding: 8px 10px; background: var(--ink); }
+  .preview-table td { padding: 7px 10px; border-bottom: 2px solid var(--ink); vertical-align: top; font-weight: 700; }
+  .preview-table tr.row-error td { background: rgba(175,51,44,0.08); color: var(--red); }
+  .preview-table tr.row-warn td { background: rgba(229,222,43,0.15); }
+  .warning-box { background: #fffbe0; border: 3px solid var(--ink); border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; font-size: 13px; color: #7a5e00; font-weight: 700; }
+  .error-box { background: #fde8e8; border: 3px solid var(--red); border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; color: var(--red); font-weight: 700; }
+  .success-box { background: rgba(45,139,69,0.1); border: 3px solid var(--green); border-radius: 8px; padding: 12px 16px; font-size: 14px; color: var(--green); font-weight: 800; margin-bottom: 8px; }
   .import-confirm-area { display: flex; gap: 10px; margin-top: 16px; align-items: center; flex-wrap: wrap; }
 </style>
 </head>

@@ -4,118 +4,98 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Driver Profile Setup — YardKartz</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --orange: #F26419; --yellow: #F7C948;
-    --asphalt: #0f0f0f; --asphalt-mid: #1a1a1a; --asphalt-light: #242424;
-    --bg: #111111; --bg2: #1a1a1a; --bg3: #222222;
-    --text: #f0f0f0; --text2: #777777;
-    --bdr: #2e2e2e; --bdr2: #444444;
-    --green: #2D8B45; --red: #C0392B;
+    --red: #AF332C; --yellow: #E5DE2B; --ink: #141414; --white: #FFFFFF;
+    --orange: #AF332C;
+    --text: #141414; --text2: #555555;
+    --bdr: #141414; --bdr2: #444444;
+    --bg: #FFFFFF; --bg2: #FFFFFF; --bg3: #F0EFE8;
+    --asphalt: #141414; --asphalt-mid: #1e1e1e; --asphalt-light: #2a2a2a;
+    --green: #2D8B45; --red-compat: #C0392B;
   }
-  body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  body { font-family: 'Nunito', sans-serif; background: var(--white); background-image: radial-gradient(circle, rgba(0,0,0,0.055) 1px, transparent 1px); background-size: 22px 22px; color: var(--ink); min-height: 100vh; }
 
   /* HEADER */
-  .site-header { background: var(--asphalt); border-bottom: 3px solid var(--orange); padding: 0 20px; position: relative; overflow: hidden; }
-  .header-kart { position: absolute; right: -10px; bottom: -8px; height: 110px; opacity: 0.15; pointer-events: none; mix-blend-mode: lighten; }
+  .site-header { background: var(--white); border-bottom: 5px solid var(--ink); padding: 0 20px; position: relative; }
+  .header-kart { display: none; }
   .header-inner { max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 14px; padding: 12px 0 10px; position: relative; z-index: 1; }
-  .header-logo { height: 56px; object-fit: contain; mix-blend-mode: lighten; }
-  .header-league { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--orange); margin-bottom: 2px; }
-  .header-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text2); }
-  .header-badge { margin-left: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--yellow); background: rgba(247,201,72,0.08); padding: 5px 12px; border-radius: 5px; border: 1px solid rgba(247,201,72,0.15); }
+  .logo-badge { background: var(--ink); border-radius: 14px; padding: 5px 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .header-logo { height: 48px; object-fit: contain; }
+  .header-league { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2.5px; color: var(--red); margin-bottom: 2px; }
+  .header-sub { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #666; }
+  .header-badge { margin-left: auto; font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--white); background: var(--red); border: 3px solid var(--ink); border-radius: 8px; padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink); }
+
+  /* CHECKERED STRIP */
+  .checkered-strip { height: 16px; background-color: var(--ink); background-image: linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%), linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%); background-size: 16px 16px; background-position: 0 0, 8px 8px; }
 
   /* MAIN */
   .page-main { max-width: 720px; margin: 0 auto; padding: 28px 20px 60px; }
-  .page-title { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 900; text-transform: uppercase; color: var(--text); margin-bottom: 4px; }
-  .page-sub { font-size: 14px; color: var(--text2); margin-bottom: 28px; line-height: 1.5; }
+  .page-title { font-family: 'Luckiest Guy', cursive; font-size: 30px; color: var(--ink); margin-bottom: 4px; }
+  .page-sub { font-size: 14px; color: #555; margin-bottom: 28px; line-height: 1.5; font-weight: 700; }
 
   /* CARDS */
-  .card { background: var(--asphalt-mid); border: 1px solid var(--bdr); border-radius: 12px; padding: 22px 24px; margin-bottom: 16px; }
-  .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--bdr); }
+  .card { background: var(--white); border: 4px solid var(--ink); border-radius: 18px; padding: 22px 24px; margin-bottom: 16px; box-shadow: 7px 7px 0 var(--ink); }
+  .card-title { font-family: 'Luckiest Guy', cursive; font-size: 15px; color: var(--red); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 3px solid var(--ink); }
 
   /* FORM ELEMENTS */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .form-group { display: flex; flex-direction: column; gap: 6px; }
   .form-group.full { grid-column: 1 / -1; }
-  label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); }
-  input[type="text"], input[type="number"], select, textarea {
-    background: var(--asphalt-light); border: 1px solid var(--bdr); border-radius: 7px;
-    padding: 10px 14px; font-family: 'Barlow', sans-serif; font-size: 14px;
-    color: var(--text); width: 100%; transition: border-color 0.12s; appearance: none;
-  }
-  input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
-    outline: none; border-color: var(--orange);
-  }
-  input::placeholder, textarea::placeholder { color: var(--text2); }
+  label { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #555; }
+  input[type="text"], input[type="number"], select, textarea { background: var(--white); border: 3px solid var(--ink); border-radius: 8px; padding: 10px 14px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: var(--ink); width: 100%; transition: border-color 0.1s, box-shadow 0.1s; appearance: none; }
+  input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--red); box-shadow: 3px 3px 0 var(--red); }
+  input::placeholder, textarea::placeholder { color: #aaa; font-weight: 700; }
   textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
-  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23777' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23141414' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
 
   /* RADIO GROUPS */
   .radio-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
   .radio-option { position: relative; }
   .radio-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
-  .radio-option label {
-    display: flex; align-items: center; gap: 7px;
-    font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 1px;
-    background: var(--asphalt-light); border: 1px solid var(--bdr);
-    border-radius: 6px; padding: 8px 14px; cursor: pointer;
-    color: var(--text2); transition: all 0.12s; white-space: nowrap;
-  }
-  .radio-option input[type="radio"]:checked + label {
-    background: rgba(242,100,25,0.15); border-color: var(--orange); color: var(--orange);
-  }
-  .radio-option label:hover { border-color: var(--bdr2); color: var(--text); }
+  .radio-option label { display: flex; align-items: center; gap: 7px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--white); border: 3px solid var(--ink); border-radius: 8px; padding: 7px 14px; cursor: pointer; color: var(--ink); transition: all 0.1s; white-space: nowrap; box-shadow: 3px 3px 0 var(--ink); }
+  .radio-option input[type="radio"]:checked + label { background: var(--red); border-color: var(--ink); color: var(--white); transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+  .radio-option label:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
 
   /* PHOTO UPLOAD */
-  .photo-upload-area {
-    border: 2px dashed var(--bdr); border-radius: 10px; padding: 28px 20px;
-    text-align: center; cursor: pointer; transition: border-color 0.15s;
-    background: var(--asphalt-light); position: relative;
-  }
-  .photo-upload-area:hover, .photo-upload-area.dragover { border-color: var(--orange); }
+  .photo-upload-area { border: 3px dashed var(--ink); border-radius: 14px; padding: 28px 20px; text-align: center; cursor: pointer; transition: all 0.15s; background: #f9f9f9; position: relative; }
+  .photo-upload-area:hover, .photo-upload-area.dragover { border-color: var(--red); background: #fffce8; }
   .photo-upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .upload-icon { font-size: 32px; margin-bottom: 8px; }
-  .upload-label { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text2); }
-  .upload-hint { font-size: 12px; color: var(--text2); margin-top: 4px; opacity: 0.7; }
-  .photo-preview { display: none; width: 100%; max-width: 200px; margin: 0 auto; border-radius: 8px; overflow: hidden; }
-  .photo-preview img { width: 100%; height: 180px; object-fit: cover; object-position: top; border-radius: 8px; border: 1px solid var(--bdr); }
-  .photo-preview .change-photo { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text2); margin-top: 8px; cursor: pointer; }
-  .upload-progress { height: 3px; background: var(--bdr); border-radius: 2px; margin-top: 10px; overflow: hidden; display: none; }
-  .upload-progress-bar { height: 100%; background: var(--orange); border-radius: 2px; width: 0%; transition: width 0.3s; }
+  .upload-label { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #555; }
+  .upload-hint { font-size: 12px; color: #888; margin-top: 4px; font-weight: 700; }
+  .photo-preview { display: none; width: 100%; max-width: 200px; margin: 0 auto; border-radius: 10px; overflow: hidden; }
+  .photo-preview img { width: 100%; height: 180px; object-fit: cover; object-position: top; border-radius: 8px; border: 3px solid var(--ink); }
+  .photo-preview .change-photo { font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-top: 8px; cursor: pointer; }
+  .upload-progress { height: 5px; background: #eee; border: 2px solid var(--ink); border-radius: 4px; margin-top: 10px; overflow: hidden; display: none; }
+  .upload-progress-bar { height: 100%; background: var(--red); border-radius: 2px; width: 0%; transition: width 0.3s; }
 
-  /* DRIVER SELECT HERO */
-  .driver-select-hero { background: var(--asphalt-mid); border: 2px solid var(--orange); border-radius: 12px; padding: 22px 24px; margin-bottom: 16px; }
-  .driver-select-hero label { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); display: block; margin-bottom: 10px; }
-  .driver-select-hero select { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; }
+  /* DRIVER SELECT */
+  .driver-select-hero { background: var(--yellow); border: 4px solid var(--ink); border-radius: 16px; padding: 22px 24px; margin-bottom: 16px; box-shadow: 6px 6px 0 var(--ink); }
+  .driver-select-hero label { font-family: 'Luckiest Guy', cursive; font-size: 16px; color: var(--ink); display: block; margin-bottom: 10px; }
+  .driver-select-hero select { font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; border-color: var(--ink); }
 
   /* SUBMIT */
-  .submit-btn {
-    width: 100%; padding: 16px; font-family: 'Barlow Condensed', sans-serif;
-    font-size: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;
-    background: var(--orange); color: #fff; border: none; border-radius: 10px;
-    cursor: pointer; transition: background 0.12s; margin-top: 8px;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-  }
-  .submit-btn:hover { background: #d4551a; }
-  .submit-btn:disabled { background: var(--bdr2); color: var(--text2); cursor: not-allowed; }
-  .submit-spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+  .submit-btn { width: 100%; padding: 16px; font-family: 'Luckiest Guy', cursive; font-size: 22px; background: var(--red); color: var(--white); border: 4px solid var(--ink); border-radius: 12px; cursor: pointer; transition: all 0.1s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 6px 6px 0 var(--ink); }
+  .submit-btn:hover { background: #8a2820; transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--ink); }
+  .submit-btn:disabled { background: #ccc; color: #888; cursor: not-allowed; box-shadow: 2px 2px 0 var(--ink); transform: none; }
+  .submit-spinner { width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   /* SUCCESS */
   .success-screen { display: none; text-align: center; padding: 60px 20px; }
   .success-icon { font-size: 64px; margin-bottom: 16px; }
-  .success-title { font-family: 'Barlow Condensed', sans-serif; font-size: 36px; font-weight: 900; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
-  .success-sub { font-size: 15px; color: var(--text2); line-height: 1.6; }
-  .success-back { display: inline-block; margin-top: 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--orange); text-decoration: none; border: 1px solid var(--orange); border-radius: 7px; padding: 10px 22px; transition: all 0.12s; }
-  .success-back:hover { background: var(--orange); color: #fff; }
+  .success-title { font-family: 'Luckiest Guy', cursive; font-size: 36px; color: var(--red); margin-bottom: 8px; }
+  .success-sub { font-size: 15px; color: #555; line-height: 1.6; font-weight: 700; }
+  .success-back { display: inline-block; margin-top: 24px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--white); text-decoration: none; background: var(--red); border: 3px solid var(--ink); border-radius: 8px; padding: 10px 22px; box-shadow: 4px 4px 0 var(--ink); transition: all 0.1s; }
+  .success-back:hover { background: #8a2820; transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
 
   /* ERROR */
-  .field-error { font-size: 12px; color: #e74c3c; margin-top: 3px; display: none; }
+  .field-error { font-size: 12px; color: var(--red); margin-top: 3px; display: none; font-weight: 800; }
 
-  /* FORM SECTION HIDDEN UNTIL DRIVER SELECTED */
+  /* FORM SECTIONS */
   .form-sections { display: none; }
 
   @media(max-width:600px) {
@@ -123,6 +103,8 @@
     .form-group.full { grid-column: 1; }
     .radio-group { flex-direction: column; }
     .radio-option label { width: 100%; }
+    .logo-badge { padding: 4px 7px; }
+    .header-logo { height: 40px; }
   }
 </style>
 </head>
@@ -131,7 +113,7 @@
 <header class="site-header">
   <img class="header-kart" src="kart.jpg" alt="">
   <div class="header-inner">
-    <img class="header-logo" src="logo.png" alt="YardKartz">
+    <div class="logo-badge"><img class="header-logo" src="logo.png" alt="YardKartz"></div>
     <div>
       <div class="header-league">2026 Stock Predator Championship</div>
       <div class="header-sub">The Handle · Westville, IN</div>
@@ -139,6 +121,7 @@
     <div class="header-badge">Driver Setup</div>
   </div>
 </header>
+<div class="checkered-strip"></div>
 
 <main class="page-main">
 
