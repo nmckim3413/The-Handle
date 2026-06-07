@@ -4,47 +4,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YardKartz — 2026 Stock Predator Championship</title>
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --red: #AF332C; --yellow: #E5DE2B; --ink: #141414; --white: #FFFFFF;
-    --orange: #AF332C;
-    --text: #141414; --text2: #555555;
-    --bdr: #141414; --bdr2: #444444;
-    --bg: #FFFFFF; --bg2: #FFFFFF; --bg3: #F0EFE8;
+    --red: #E0231C; --yellow: #F4E40F; --ink: #141414; --white: #ffffff;
+    --orange: #E0231C;
+    --text: #ffffff; --text2: #9a9a9a;
+    --bdr: #2a2a2a; --bdr2: #2a2a2a;
+    --bg: #0a0a0a; --bg2: #141414; --bg3: #1c1c1c;
+    --panel: #141414; --panel-2: #1c1c1c; --line: #2a2a2a; --muted: #9a9a9a;
     --asphalt: #141414; --asphalt-mid: #1e1e1e; --asphalt-light: #2a2a2a;
     --green: #2D8B45;
   }
-  body { font-family: 'Nunito', sans-serif; background: var(--white); background-image: radial-gradient(circle, rgba(0,0,0,0.055) 1px, transparent 1px); background-size: 22px 22px; color: var(--ink); min-height: 100vh; }
+  body { font-family: 'Archivo', sans-serif; background: #0a0a0a; color: var(--white); min-height: 100vh; }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 40% at top left, rgba(224,35,28,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at bottom right, rgba(244,228,15,0.04) 0%, transparent 60%);
+    z-index: 0;
+  }
 
   /* HEADER */
-  .site-header { background: var(--white); border-bottom: 5px solid var(--ink); padding: 0 20px; position: relative; }
+  .site-header { background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--line); padding: 0 20px; position: relative; }
   .header-kart { display: none; }
   .header-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 14px; padding: 12px 0 10px; position: relative; z-index: 1; }
-  .logo-badge { background: var(--ink); border-radius: 14px; padding: 5px 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .header-logo { height: 52px; object-fit: contain; }
-  .header-league { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2.5px; color: var(--red); margin-bottom: 2px; }
-  .header-sub { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #666; }
-  .season-tag { margin-left: auto; font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--white); background: var(--red); border: 3px solid var(--ink); border-radius: 8px; padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink); }
+  .logo-badge { display: none; }
+  .header-logo { height: 52px; object-fit: contain; flex-shrink: 0; }
+  .header-league { font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2.5px; color: var(--red); margin-bottom: 2px; }
+  .header-sub { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
+  .season-tag { margin-left: auto; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--white); background: var(--red); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; box-shadow: none; }
 
   /* SOCIAL */
   .social-links { display: flex; align-items: center; gap: 8px; }
-  .social-btn { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: var(--white); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); transition: all 0.1s; text-decoration: none; flex-shrink: 0; }
-  .social-btn:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
-  .social-btn svg { width: 16px; height: 16px; fill: var(--ink); }
-  .social-btn:hover svg { fill: var(--ink); }
+  .social-btn { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line); box-shadow: none; transition: all 0.1s; text-decoration: none; flex-shrink: 0; }
+  .social-btn:hover { background: var(--panel-2); border-color: var(--red); }
+  .social-btn svg { width: 16px; height: 16px; fill: var(--white); }
+  .social-btn:hover svg { fill: var(--white); }
 
   /* NAV */
-  .site-nav { background: var(--white); border-bottom: 3px solid var(--ink); padding: 0 20px; }
+  .site-nav { background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); padding: 0 20px; position: sticky; top: 0; z-index: 100; }
   .nav-inner { max-width: 900px; margin: 0 auto; display: flex; overflow-x: auto; gap: 5px; padding: 8px 0 6px; }
   .nav-inner::-webkit-scrollbar { display: none; }
-  .nav-inner button { background: var(--white); border: 3px solid var(--ink); border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink); padding: 6px 13px; cursor: pointer; transition: all 0.1s; white-space: nowrap; flex-shrink: 0; box-shadow: 3px 3px 0 var(--ink); }
-  .nav-inner button:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
-  .nav-inner button.active { background: var(--red); color: var(--white); transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+  .nav-inner button { background: transparent; border: none; border-radius: 0; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); padding: 6px 13px; cursor: pointer; transition: all 0.1s; white-space: nowrap; flex-shrink: 0; box-shadow: none; border-bottom: 3px solid transparent; }
+  .nav-inner button:hover { color: var(--white); background: transparent; }
+  .nav-inner button.active { background: transparent; color: var(--white); transform: none; box-shadow: none; border-bottom: 3px solid var(--red); }
 
   /* CHECKERED STRIP */
-  .checkered-strip { height: 16px; background-color: var(--ink); background-image: linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%), linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%); background-size: 16px 16px; background-position: 0 0, 8px 8px; }
+  .checkered-strip { height: 16px; background-color: var(--ink); background-image: linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%), linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%); background-size: 16px 16px; background-position: 0 0, 8px 8px; border-top: 2px solid var(--red); border-bottom: 2px solid var(--red); }
 
   /* MAIN */
   .site-main { padding: 0 20px; }
@@ -53,201 +64,202 @@
   .page.active { display: block; }
 
   /* HERO */
-  .hero { background: var(--white); border-radius: 18px; border: 5px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); margin-bottom: 18px; overflow: hidden; }
+  .hero { background: var(--panel); border-radius: 18px; border: 1px solid var(--line); box-shadow: 0 2px 8px rgba(0,0,0,0.4); margin-bottom: 18px; overflow: hidden; }
   .hero-top { padding: 26px 26px 0; position: relative; z-index: 1; }
   .hero-kart-bg { display: none; }
-  .hero-label { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 10px; }
+  .hero-label { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 10px; }
   .hero-logo { height: 70px; object-fit: contain; display: block; margin-bottom: 10px; }
-  .hero-desc { font-size: 14px; color: #444; margin-bottom: 22px; line-height: 1.5; max-width: 400px; font-weight: 700; }
-  .stat-row { display: grid; grid-template-columns: repeat(3,1fr); border-top: 4px solid var(--ink); }
-  .stat-box { padding: 14px 16px; background: var(--white); border-right: 3px solid var(--ink); }
+  .hero-desc { font-size: 14px; color: var(--muted); margin-bottom: 22px; line-height: 1.5; max-width: 400px; font-weight: 700; }
+  .stat-row { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); }
+  .stat-box { padding: 14px 16px; background: var(--panel); border-right: 1px solid var(--line); }
   .stat-box:last-child { border-right: none; }
-  .stat-n { font-family: 'Luckiest Guy', cursive; font-size: 36px; color: var(--red); line-height: 1; }
-  .stat-l { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-top: 2px; }
+  .stat-n { font-family: 'Archivo', sans-serif; font-size: 36px; font-weight: 900; color: var(--red); line-height: 1; }
+  .stat-l { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-top: 2px; }
 
-  .next-race { border: 4px solid var(--ink); border-radius: 14px; padding: 14px 18px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; background: var(--white); box-shadow: 6px 6px 0 var(--ink); }
-  .next-lbl { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 4px; }
-  .next-name { font-family: 'Luckiest Guy', cursive; font-size: 20px; color: var(--ink); }
-  .next-date { font-family: 'Luckiest Guy', cursive; font-size: 32px; color: var(--red); text-align: right; line-height: 1; }
-  .next-date span { display: block; font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 800; color: #666; letter-spacing: 1px; text-transform: uppercase; }
-  .sect-lbl { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: #666; margin-bottom: 10px; }
+  .next-race { border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; background: var(--panel); box-shadow: none; }
+  .next-lbl { font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 4px; }
+  .next-name { font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 900; color: var(--white); }
+  .next-date { font-family: 'Archivo', sans-serif; font-size: 32px; font-weight: 900; color: var(--red); text-align: right; line-height: 1; }
+  .next-date span { display: block; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 800; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .sect-lbl { font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: var(--muted); margin-bottom: 10px; }
 
   /* TABLES */
-  .tbl-wrap { border: 5px solid var(--ink); border-radius: 18px; box-shadow: 8px 8px 0 var(--ink); overflow: hidden; margin-bottom: 18px; }
+  .tbl-wrap { border: 1px solid var(--line); border-radius: 18px; box-shadow: none; overflow: hidden; margin-bottom: 18px; }
   .tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
-  .tbl th { font-family: 'Luckiest Guy', cursive; font-size: 12px; letter-spacing: 0.5px; color: var(--yellow); padding: 11px 14px; background: var(--ink); text-align: left; }
-  .tbl td { padding: 10px 14px; border-bottom: 2px solid var(--ink); background: var(--white); color: var(--ink); font-weight: 700; }
+  .tbl th { font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 900; letter-spacing: 0.5px; color: var(--yellow); padding: 11px 14px; background: var(--panel); text-align: left; }
+  .tbl td { padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--panel); color: var(--white); font-weight: 700; }
   .tbl tr:last-child td { border-bottom: none; }
-  .tbl tr:hover td { background: #fffce8; }
-  .pos { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 3px solid var(--ink); font-family: 'Luckiest Guy', cursive; font-size: 15px; background: var(--white); color: var(--ink); }
-  .pos.p1 { background: var(--yellow); }
-  .pos.p2 { background: #ddd; }
-  .pos.p3 { background: #c8a26a; }
-  .laptime { font-family: 'Luckiest Guy', cursive; font-size: 20px; color: var(--red); }
-  .rec-badge { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); padding: 2px 7px; border-radius: 6px; margin-left: 8px; }
+  .tbl tr:hover td { background: var(--panel-2); }
+  .pos { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 900; background: var(--panel); color: var(--white); }
+  .pos.p1 { background: var(--yellow); color: #0a0a0a; border-color: var(--yellow); }
+  .pos.p2 { background: var(--panel-2); color: var(--muted); }
+  .pos.p3 { background: #c8a26a; color: #0a0a0a; }
+  .laptime { font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 900; color: var(--red); }
+  .rec-badge { font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--yellow); color: #0a0a0a; border: 1px solid var(--line); padding: 2px 7px; border-radius: 6px; margin-left: 8px; }
   .pts-row { display: flex; align-items: center; gap: 10px; }
-  .pts-bar { height: 6px; border-radius: 3px; background: var(--red); border: 1px solid var(--ink); }
-  .pts-bar.dim { background: #ddd; border: 1px solid #bbb; }
-  .pts-n { font-family: 'Luckiest Guy', cursive; font-size: 18px; min-width: 36px; text-align: right; color: var(--ink); }
+  .pts-bar { height: 6px; border-radius: 3px; background: var(--red); border: 1px solid var(--line); }
+  .pts-bar.dim { background: var(--panel-2); border: 1px solid var(--line); }
+  .pts-n { font-family: 'Archivo', sans-serif; font-size: 18px; font-weight: 900; min-width: 36px; text-align: right; color: var(--white); }
 
   /* LEADER */
-  .leader-card { background: var(--yellow); border: 5px solid var(--ink); border-radius: 18px; box-shadow: 8px 8px 0 var(--ink); padding: 18px 20px; margin-bottom: 18px; display: flex; align-items: center; gap: 18px; }
-  .leader-num { font-family: 'Luckiest Guy', cursive; font-size: 64px; color: var(--ink); line-height: 1; }
-  .leader-name { font-family: 'Luckiest Guy', cursive; font-size: 26px; color: var(--ink); }
-  .leader-sub { font-size: 13px; color: #333; margin-top: 3px; font-weight: 700; }
-  .leader-badge { display: inline-block; margin-top: 6px; font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; background: var(--ink); color: var(--yellow); border: 2px solid var(--ink); padding: 3px 9px; border-radius: 6px; }
+  .leader-card { background: var(--panel); border-left: 6px solid var(--red); border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 18px; box-shadow: none; padding: 18px 20px; margin-bottom: 18px; display: flex; align-items: center; gap: 18px; }
+  .leader-num { font-family: 'Archivo', sans-serif; font-size: 64px; font-weight: 900; color: var(--red); line-height: 1; }
+  .leader-name { font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 900; color: var(--white); }
+  .leader-sub { font-size: 13px; color: var(--muted); margin-top: 3px; font-weight: 700; }
+  .leader-badge { display: inline-block; margin-top: 6px; font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; background: var(--red); color: var(--white); border: 1px solid var(--line); padding: 3px 9px; border-radius: 6px; }
 
   /* TWO-PANEL HERO */
   .hero-panels { display: flex; min-height: 180px; }
   .hero-panel { flex: 1; padding: 22px 22px 20px; min-width: 0; }
-  .hp-left { background: var(--yellow); border-top: 4px solid var(--yellow); }
-  .hp-right { background: var(--white); border-top: 4px solid var(--ink); }
-  .hero-vdivider { width: 4px; background: var(--ink); flex-shrink: 0; }
-  .hp-lbl { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 12px; }
-  .hp-name { font-family: 'Luckiest Guy', cursive; font-size: 26px; color: var(--ink); line-height: 1.1; }
-  .hp-sub { font-size: 13px; color: #333; margin-top: 5px; font-weight: 700; }
-  .hp-pts-badge { display: inline-block; margin-top: 8px; font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; background: var(--red); color: var(--white); border: 2px solid var(--ink); padding: 3px 10px; border-radius: 6px; box-shadow: 2px 2px 0 var(--ink); }
-  .hp-round { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #555; margin-bottom: 4px; }
-  .hp-date-big { font-family: 'Luckiest Guy', cursive; font-size: 44px; color: var(--red); line-height: 1; margin-bottom: 8px; }
-  .hp-race-name { font-family: 'Luckiest Guy', cursive; font-size: 18px; color: var(--ink); }
-  .hp-location { font-size: 12px; color: #555; margin-top: 4px; font-weight: 700; }
-  .hp-countdown { display: inline-block; margin-top: 10px; font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; background: var(--ink); color: var(--yellow); border: 2px solid var(--ink); padding: 4px 10px; border-radius: 6px; }
+  .hp-left { background: var(--panel); border-top: 4px solid var(--red); }
+  .hp-right { background: var(--panel); border-top: 4px solid var(--yellow); }
+  .hero-vdivider { width: 1px; background: var(--line); flex-shrink: 0; }
+  .hp-lbl { font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 12px; }
+  .hp-name { font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 900; color: var(--white); line-height: 1.1; }
+  .hp-sub { font-size: 13px; color: var(--muted); margin-top: 5px; font-weight: 700; }
+  .hp-pts-badge { display: inline-block; margin-top: 8px; font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; background: var(--red); color: var(--white); border: 1px solid var(--line); padding: 3px 10px; border-radius: 6px; box-shadow: none; }
+  .hp-round { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 4px; }
+  .hp-date-big { font-family: 'Archivo', sans-serif; font-size: 44px; font-weight: 900; color: var(--yellow); line-height: 1; margin-bottom: 8px; }
+  .hp-race-name { font-family: 'Archivo', sans-serif; font-size: 18px; font-weight: 900; color: var(--white); }
+  .hp-location { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 700; }
+  .hp-countdown { display: inline-block; margin-top: 10px; font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; background: var(--panel-2); color: var(--yellow); border: 1px solid var(--line); padding: 4px 10px; border-radius: 6px; }
 
   /* STANDINGS */
-  .nsc-subhdr { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); margin-bottom: 14px; margin-top: 3px; }
+  .nsc-subhdr { font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); margin-bottom: 14px; margin-top: 3px; }
   .nsc-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .nsc-tbl thead tr { background: var(--ink); }
-  .nsc-tbl th { font-family: 'Luckiest Guy', cursive; font-size: 11px; letter-spacing: 0.5px; color: var(--yellow); padding: 10px; text-align: center; white-space: nowrap; }
+  .nsc-tbl thead tr { background: var(--panel); }
+  .nsc-tbl th { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.5px; color: var(--yellow); padding: 10px; text-align: center; white-space: nowrap; }
   .nsc-tbl th.th-left { text-align: left; }
-  .nsc-tbl td { padding: 9px 10px; border-bottom: 2px solid var(--ink); text-align: center; color: var(--ink); vertical-align: middle; background: var(--white); font-weight: 700; }
+  .nsc-tbl td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: center; color: var(--white); vertical-align: middle; background: var(--panel); font-weight: 700; }
   .nsc-tbl td.td-left { text-align: left; }
-  .nsc-tbl tr:nth-child(even) td { background: #f9f9f9; }
-  .nsc-tbl tr.nsc-row-1 td { background: #fffbe0 !important; }
+  .nsc-tbl tr:nth-child(even) td { background: var(--panel); }
+  .nsc-tbl tr.nsc-row-1 td { background: var(--panel) !important; }
   .nsc-tbl tr:last-child td { border-bottom: none; }
-  .nsc-tbl tr:hover td { background: #fffce8; }
-  .nsc-pos { font-family: 'Luckiest Guy', cursive; font-size: 18px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; border: 3px solid var(--ink); background: var(--white); color: var(--ink); }
-  .nsc-pos.p1 { background: var(--yellow); }
-  .nsc-pos.p2 { background: #d0d0d0; }
-  .nsc-pos.p3 { background: #c8a26a; }
-  .nsc-pos.px { background: var(--white); color: #777; }
-  .nsc-row-1 td:first-child { border-left: 5px solid var(--yellow); }
-  .nsc-row-2 td:first-child { border-left: 5px solid #bbb; }
+  .nsc-tbl tr:hover td { background: var(--panel-2); }
+  .nsc-pos { font-family: 'Archivo', sans-serif; font-size: 18px; font-weight: 900; line-height: 1; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); color: var(--white); }
+  .nsc-pos.p1 { background: var(--yellow); color: #0a0a0a; border-color: var(--yellow); }
+  .nsc-pos.p2 { background: var(--panel-2); color: var(--muted); }
+  .nsc-pos.p3 { background: #c8a26a; color: #0a0a0a; }
+  .nsc-pos.px { background: var(--panel); color: var(--muted); }
+  .nsc-row-1 td:first-child { border-left: 6px solid var(--yellow); }
+  .nsc-row-2 td:first-child { border-left: 5px solid var(--muted); }
   .nsc-row-3 td:first-child { border-left: 5px solid #c8a26a; }
-  .nsc-pts { font-family: 'Luckiest Guy', cursive; font-size: 18px; color: var(--ink); }
-  .nsc-behind-dash { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: #888; }
-  .nsc-behind { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; color: var(--red); }
-  .nsc-stat { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: #555; }
-  .nsc-driver-name { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; }
+  .nsc-row-1 .nsc-pts { color: var(--yellow); }
+  .nsc-row-1 .nsc-driver-name { color: var(--yellow); }
+  .nsc-pts { font-family: 'Archivo', sans-serif; font-size: 18px; font-weight: 900; color: var(--white); }
+  .nsc-behind-dash { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 700; color: var(--muted); }
+  .nsc-behind { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; color: var(--red); }
+  .nsc-stat { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 700; color: var(--muted); }
+  .nsc-driver-name { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--white); }
 
   /* DRIVERS */
   .driver-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 10px; margin-bottom: 18px; }
-  .driver-card { border: 4px solid var(--ink); border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; background: var(--white); box-shadow: 6px 6px 0 var(--ink); transition: all 0.1s; cursor: pointer; }
-  .driver-card:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--ink); background: #fffce8; border-color: var(--ink); }
-  .d-num { font-family: 'Luckiest Guy', cursive; font-size: 30px; line-height: 1; min-width: 52px; text-align: center; background: var(--ink); color: var(--white); border-radius: 10px; padding: 4px 8px; }
-  .d-name { font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; color: var(--ink); }
-  .d-meta { font-size: 12px; color: #666; margin-top: 3px; font-weight: 700; }
-  .d-badge { display: inline-block; margin-top: 5px; font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border: 2px solid var(--ink); color: #555; padding: 2px 7px; border-radius: 6px; }
+  .driver-card { border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; background: var(--panel); box-shadow: none; transition: all 0.1s; cursor: pointer; }
+  .driver-card:hover { background: var(--panel-2); border-color: var(--red); }
+  .d-num { font-family: 'Archivo', sans-serif; font-size: 30px; font-weight: 900; line-height: 1; min-width: 52px; text-align: center; background: var(--panel-2); color: var(--white); border-radius: 10px; padding: 4px 8px; }
+  .d-name { font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; color: var(--white); }
+  .d-meta { font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 700; }
+  .d-badge { display: inline-block; margin-top: 5px; font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--line); color: var(--muted); padding: 2px 7px; border-radius: 6px; }
   .d-badge.hot { background: var(--red); border-color: var(--red); color: var(--white); }
 
   /* SCHEDULE */
   .tab-row { display: flex; gap: 6px; margin-bottom: 14px; }
-  .tab-btn { font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--white); border: 3px solid var(--ink); border-radius: 8px; color: var(--ink); padding: 6px 14px; cursor: pointer; transition: all 0.1s; box-shadow: 3px 3px 0 var(--ink); }
-  .tab-btn.active { background: var(--red); color: var(--white); transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
-  .tab-btn:hover:not(.active) { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+  .tab-btn { font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; color: var(--muted); padding: 6px 14px; cursor: pointer; transition: all 0.1s; box-shadow: none; }
+  .tab-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
+  .tab-btn:hover:not(.active) { background: var(--panel-2); color: var(--white); }
   .race-list { display: flex; flex-direction: column; gap: 8px; }
-  .race-row { border: 4px solid var(--ink); border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; background: var(--white); box-shadow: 5px 5px 0 var(--ink); }
+  .race-row { border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; background: var(--panel); box-shadow: none; }
   .race-row.past { opacity: 0.75; cursor: pointer; transition: all 0.1s; }
-  .race-row.past:hover { opacity: 1; transform: translate(-1px,-1px); box-shadow: 6px 6px 0 var(--ink); }
+  .race-row.past:hover { opacity: 1; background: var(--panel-2); }
   .race-row.past.open { opacity: 1; border-radius: 14px 14px 0 0; border-bottom: none; box-shadow: none; }
-  .race-row.upcoming { border-color: var(--red); background: #fff5f5; box-shadow: 5px 5px 0 var(--red); }
-  .r-chevron { margin-left: auto; color: var(--ink); font-size: 18px; line-height: 1; transition: transform 0.25s ease; flex-shrink: 0; user-select: none; }
+  .race-row.upcoming { border-left: 4px solid var(--red); background: var(--panel); box-shadow: none; }
+  .r-chevron { margin-left: auto; color: var(--muted); font-size: 18px; line-height: 1; transition: transform 0.25s ease; flex-shrink: 0; user-select: none; }
   .race-row.past.open .r-chevron { transform: rotate(180deg); }
-  .race-results { background: #f9f9f9; border: 4px solid var(--ink); border-top: none; border-radius: 0 0 14px 14px; max-height: 0; overflow: hidden; transition: max-height 0.32s ease; }
+  .race-results { background: var(--panel-2); border: 1px solid var(--line); border-top: none; border-radius: 0 0 14px 14px; max-height: 0; overflow: hidden; transition: max-height 0.32s ease; }
   .race-results.open { max-height: 800px; }
   .race-results-inner { padding: 4px 16px 14px; }
   .rr-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .rr-tbl th { font-family: 'Luckiest Guy', cursive; font-size: 11px; color: var(--yellow); padding: 10px 10px 6px; text-align: left; background: var(--ink); }
-  .rr-tbl td { padding: 8px 10px; border-top: 2px solid var(--ink); font-weight: 700; }
-  .rr-pos { font-family: 'Luckiest Guy', cursive; font-size: 20px; color: #777; }
+  .rr-tbl th { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; color: var(--yellow); padding: 10px 10px 6px; text-align: left; background: var(--panel); }
+  .rr-tbl td { padding: 8px 10px; border-top: 1px solid var(--line); font-weight: 700; color: var(--white); }
+  .rr-pos { font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 900; color: var(--muted); }
   .rr-pos.p1 { color: var(--red); }
-  .rr-pos.p2 { color: #999; }
+  .rr-pos.p2 { color: var(--muted); }
   .rr-pos.p3 { color: #c8a26a; }
-  .rr-name { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--ink); }
-  .rr-time { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; color: var(--red); }
-  .rr-pts { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: #666; }
-  .rr-empty { text-align: center; padding: 18px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #888; }
-  .rr-loading { text-align: center; padding: 18px; font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #888; }
+  .rr-name { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--white); }
+  .rr-time { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; color: var(--red); }
+  .rr-pts { font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 700; color: var(--muted); }
+  .rr-empty { text-align: center; padding: 18px; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); }
+  .rr-loading { text-align: center; padding: 18px; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); }
   .r-date { text-align: center; min-width: 42px; }
-  .r-month { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #666; }
-  .r-day { font-family: 'Luckiest Guy', cursive; font-size: 28px; line-height: 1; color: var(--ink); }
-  .r-name { font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; color: var(--ink); }
-  .r-detail { font-size: 12px; color: #666; margin-top: 2px; font-weight: 700; }
-  .r-winner { margin-left: auto; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; color: var(--red); }
-  .r-pill { margin-left: auto; font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--red); color: var(--white); border: 2px solid var(--ink); padding: 3px 10px; border-radius: 6px; box-shadow: 2px 2px 0 var(--ink); white-space: nowrap; }
+  .r-month { font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .r-day { font-family: 'Archivo', sans-serif; font-size: 28px; font-weight: 900; line-height: 1; color: var(--white); }
+  .r-name { font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; color: var(--white); }
+  .r-detail { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 700; }
+  .r-winner { margin-left: auto; font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; color: var(--red); }
+  .r-pill { margin-left: auto; font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--red); color: var(--white); border: 1px solid var(--line); padding: 3px 10px; border-radius: 6px; box-shadow: none; white-space: nowrap; }
 
   /* VIDEOS */
   .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: 12px; }
-  .v-card { border: 4px solid var(--ink); border-radius: 16px; overflow: hidden; cursor: pointer; background: var(--white); box-shadow: 6px 6px 0 var(--ink); transition: all 0.1s; }
-  .v-card:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--ink); }
-  .v-thumb { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; background: #ddd; overflow: hidden; }
+  .v-card { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; cursor: pointer; background: var(--panel); box-shadow: none; transition: all 0.1s; }
+  .v-card:hover { background: var(--panel-2); border-color: var(--red); }
+  .v-thumb { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; background: var(--panel-2); overflow: hidden; }
   .v-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .v-play { width: 44px; height: 44px; background: var(--red); border: 3px solid var(--ink); border-radius: 50%; box-shadow: 3px 3px 0 var(--ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .v-play { width: 44px; height: 44px; background: var(--red); border: 1px solid var(--line); border-radius: 50%; box-shadow: none; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .v-play svg { width: 14px; height: 14px; fill: var(--white); margin-left: 3px; }
-  .v-info { padding: 10px 12px 12px; border-top: 3px solid var(--ink); }
-  .v-title { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; line-height: 1.2; color: var(--ink); }
-  .v-meta { font-size: 12px; color: #666; margin-top: 4px; font-weight: 700; }
+  .v-info { padding: 10px 12px 12px; border-top: 1px solid var(--line); }
+  .v-title { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; line-height: 1.2; color: var(--white); }
+  .v-meta { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 700; }
 
   /* RULEBOOK */
-  .rule-section { background: var(--white); border: 4px solid var(--ink); border-radius: 16px; margin-bottom: 10px; overflow: hidden; box-shadow: 6px 6px 0 var(--ink); }
+  .rule-section { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; margin-bottom: 10px; overflow: hidden; box-shadow: none; }
   .rule-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; cursor: pointer; transition: background 0.1s; }
-  .rule-header:hover { background: #fffce8; }
-  .rule-num { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 2px; }
-  .rule-title { font-family: 'Luckiest Guy', cursive; font-size: 17px; color: var(--ink); }
-  .rule-chevron { font-size: 18px; color: var(--ink); transition: transform 0.2s; }
+  .rule-header:hover { background: var(--panel-2); }
+  .rule-num { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 2px; }
+  .rule-title { font-family: 'Archivo', sans-serif; font-size: 17px; font-weight: 900; color: var(--white); }
+  .rule-chevron { font-size: 18px; color: var(--muted); transition: transform 0.2s; }
   .rule-header.open .rule-chevron { transform: rotate(180deg); }
-  .rule-body { display: none; padding: 0 18px 16px; border-top: 3px solid var(--ink); background: #fafafa; }
+  .rule-body { display: none; padding: 0 18px 16px; border-top: 1px solid var(--line); background: var(--panel-2); }
   .rule-body.open { display: block; }
-  .rule-body p { font-size: 13px; color: #333; line-height: 1.7; margin-top: 12px; font-weight: 700; }
-  .rule-body p strong { color: var(--ink); }
+  .rule-body p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 12px; font-weight: 700; }
+  .rule-body p strong { color: var(--white); }
   .rule-body ul { margin: 10px 0 0 16px; }
-  .rule-body ul li { font-size: 13px; color: #333; line-height: 1.7; font-weight: 700; }
-  .rule-body ul li strong { color: var(--ink); }
-  .rule-warn { background: #fff0ef; border: 3px solid var(--red); border-radius: 10px; padding: 10px 14px; margin-top: 12px; font-size: 13px; color: var(--red); font-weight: 800; line-height: 1.5; }
+  .rule-body ul li { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 700; }
+  .rule-body ul li strong { color: var(--white); }
+  .rule-warn { background: rgba(224,35,28,0.1); border: 1px solid var(--red); border-radius: 10px; padding: 10px 14px; margin-top: 12px; font-size: 13px; color: var(--red); font-weight: 800; line-height: 1.5; }
 
   /* POINTS GRID */
   .pts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
-  .pts-cell { background: var(--white); border: 3px solid var(--ink); border-radius: 10px; padding: 8px 10px; text-align: center; box-shadow: 4px 4px 0 var(--ink); }
-  .pts-cell-pos { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #666; }
-  .pts-cell-val { font-family: 'Luckiest Guy', cursive; font-size: 22px; color: var(--red); line-height: 1.1; }
-  .pts-cell:first-child { background: var(--yellow); }
-  .pts-cell:first-child .pts-cell-val { color: var(--ink); font-size: 26px; }
+  .pts-cell { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; text-align: center; box-shadow: none; }
+  .pts-cell-pos { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .pts-cell-val { font-family: 'Archivo', sans-serif; font-size: 22px; font-weight: 900; color: var(--red); line-height: 1.1; }
+  .pts-cell:first-child { background: var(--panel-2); border-color: var(--yellow); }
+  .pts-cell:first-child .pts-cell-val { color: var(--yellow); font-size: 26px; }
 
   /* INFO CARDS */
-  .info-card { background: var(--white); border: 4px solid var(--ink); border-radius: 16px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 6px 6px 0 var(--ink); }
-  .info-card h3 { font-family: 'Luckiest Guy', cursive; font-size: 15px; color: var(--red); margin-bottom: 10px; }
-  .info-card p { font-size: 13px; color: #333; line-height: 1.7; font-weight: 700; }
-  .empty { text-align: center; padding: 40px; color: #888; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
-  .loading { text-align: center; padding: 40px; color: #888; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+  .info-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px 20px; margin-bottom: 12px; box-shadow: none; }
+  .info-card h3 { font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 900; color: var(--red); margin-bottom: 10px; }
+  .info-card p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 700; }
+  .empty { text-align: center; padding: 40px; color: var(--muted); font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+  .loading { text-align: center; padding: 40px; color: var(--muted); font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
   /* FOOTER */
-  .site-footer { background: var(--ink); border-top: 5px solid var(--ink); text-align: center; padding: 18px 20px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 20px; position: relative; }
+  .site-footer { background: #0a0a0a; border-top: 1px solid var(--line); text-align: center; padding: 18px 20px; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 20px; position: relative; }
   .footer-kart { display: none; }
   .site-footer a { color: var(--yellow); text-decoration: none; }
   .footer-socials { display: flex; justify-content: center; gap: 12px; margin-bottom: 10px; }
-  .footer-social-btn { display: flex; align-items: center; gap: 7px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.45); text-decoration: none; padding: 6px 12px; border: 2px solid rgba(255,255,255,0.2); border-radius: 8px; transition: all 0.12s; }
+  .footer-social-btn { display: flex; align-items: center; gap: 7px; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); text-decoration: none; padding: 6px 12px; border: 1px solid var(--line); border-radius: 8px; transition: all 0.12s; }
   .footer-social-btn:hover { color: var(--yellow); border-color: var(--yellow); }
   .footer-social-btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
 
   @media(max-width:600px){
     .header-logo{height:40px}
-    .logo-badge{padding:4px 7px}
     .hero-top{padding:18px 16px 0}
     .driver-grid{grid-template-columns:1fr 1fr}
     .next-race{flex-direction:column;align-items:flex-start;gap:8px}
     .season-tag{display:none}
     .pts-grid{grid-template-columns:repeat(2,1fr)}
     .hero-panels{flex-direction:column}
-    .hero-vdivider{width:auto;height:4px}
+    .hero-vdivider{width:auto;height:1px}
     .hp-date-big{font-size:36px}
     .nsc-hide-sm{display:none}
   }
@@ -255,62 +267,62 @@
   /* WEATHER */
   .wx-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 14px; }
   .wx-grid.four { grid-template-columns: repeat(4,1fr); }
-  .wx-card { background: var(--white); border: 4px solid var(--ink); border-radius: 14px; padding: 14px 16px; text-align: center; box-shadow: 5px 5px 0 var(--ink); }
-  .wx-card.featured { background: var(--yellow); }
+  .wx-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; text-align: center; box-shadow: none; }
+  .wx-card.featured { background: var(--panel); border: 1px solid var(--yellow); }
   .wx-icon { font-size: 26px; margin-bottom: 4px; }
-  .wx-val { font-family: 'Luckiest Guy', cursive; font-size: 32px; color: var(--red); line-height: 1; }
+  .wx-val { font-family: 'Archivo', sans-serif; font-size: 32px; font-weight: 900; color: var(--red); line-height: 1; }
   .wx-val.big { font-size: 42px; }
   .wx-val.good { color: #1a8040; }
-  .wx-val.ok { color: #b07800; }
+  .wx-val.ok { color: var(--yellow); }
   .wx-val.bad { color: var(--red); }
-  .wx-lbl { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #555; margin-top: 4px; }
-  .wx-sub { font-size: 12px; color: #555; margin-top: 2px; font-weight: 700; }
-  .wx-header { background: var(--white); border: 4px solid var(--ink); border-radius: 14px; padding: 14px 18px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; box-shadow: 5px 5px 0 var(--ink); }
-  .wx-location { font-family: 'Luckiest Guy', cursive; font-size: 18px; color: var(--ink); }
-  .wx-condition { font-size: 13px; color: #555; margin-top: 2px; text-transform: capitalize; font-weight: 700; }
-  .wx-updated { font-family: 'Nunito', sans-serif; font-size: 11px; color: #666; letter-spacing: 1px; text-align: right; font-weight: 700; }
-  .wx-refresh-btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--white); border: 3px solid var(--ink); border-radius: 8px; color: var(--ink); padding: 5px 12px; cursor: pointer; margin-top: 6px; box-shadow: 3px 3px 0 var(--ink); transition: all 0.1s; }
-  .wx-refresh-btn:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
-  .da-explain { background: var(--white); border: 4px solid var(--ink); border-radius: 14px; padding: 14px 18px; margin-top: 14px; box-shadow: 5px 5px 0 var(--ink); }
-  .da-explain h3 { font-family: 'Luckiest Guy', cursive; font-size: 14px; color: var(--red); margin-bottom: 8px; }
-  .da-explain p { font-size: 13px; color: #333; line-height: 1.7; font-weight: 700; }
-  .wx-loading { text-align: center; padding: 60px 20px; color: #888; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
-  .da-rating { display: inline-block; font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 6px; margin-top: 6px; border: 2px solid var(--ink); }
-  .da-rating.good { background: #d4edda; color: #1a8040; }
-  .da-rating.ok { background: var(--yellow); color: var(--ink); }
-  .da-rating.bad { background: #fde8e8; color: var(--red); }
+  .wx-lbl { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-top: 4px; }
+  .wx-sub { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 700; }
+  .wx-header { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; box-shadow: none; }
+  .wx-location { font-family: 'Archivo', sans-serif; font-size: 18px; font-weight: 900; color: var(--white); }
+  .wx-condition { font-size: 13px; color: var(--muted); margin-top: 2px; text-transform: capitalize; font-weight: 700; }
+  .wx-updated { font-family: 'Archivo', sans-serif; font-size: 11px; color: var(--muted); letter-spacing: 1px; text-align: right; font-weight: 700; }
+  .wx-refresh-btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; color: var(--white); padding: 5px 12px; cursor: pointer; margin-top: 6px; box-shadow: none; transition: all 0.1s; }
+  .wx-refresh-btn:hover { background: var(--panel-2); border-color: var(--red); }
+  .da-explain { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin-top: 14px; box-shadow: none; }
+  .da-explain h3 { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; color: var(--red); margin-bottom: 8px; }
+  .da-explain p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 700; }
+  .wx-loading { text-align: center; padding: 60px 20px; color: var(--muted); font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+  .da-rating { display: inline-block; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 6px; margin-top: 6px; border: 1px solid var(--line); }
+  .da-rating.good { background: rgba(26,128,64,0.2); color: #1a8040; }
+  .da-rating.ok { background: rgba(244,228,15,0.15); color: var(--yellow); }
+  .da-rating.bad { background: rgba(224,35,28,0.15); color: var(--red); }
   @media(max-width:600px){ .wx-grid.four{ grid-template-columns: repeat(2,1fr); } }
 
   /* DRIVER PROFILE */
-  .prof-back { background: var(--white); border: 3px solid var(--ink); border-radius: 8px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--ink); padding: 7px 14px; cursor: pointer; margin-bottom: 18px; display: inline-block; box-shadow: 3px 3px 0 var(--ink); transition: all 0.1s; }
-  .prof-back:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
-  .prof-hero { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 18px; background: var(--yellow); border: 5px solid var(--ink); border-radius: 18px; box-shadow: 8px 8px 0 var(--ink); padding: 22px 22px 0; overflow: hidden; position: relative; }
+  .prof-back { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--white); padding: 7px 14px; cursor: pointer; margin-bottom: 18px; display: inline-block; box-shadow: none; transition: all 0.1s; }
+  .prof-back:hover { background: var(--panel-2); border-color: var(--red); }
+  .prof-hero { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 18px; background: var(--panel); border-left: 6px solid var(--red); border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 18px; box-shadow: none; padding: 22px 22px 0; overflow: hidden; position: relative; }
   .prof-num-wrap { flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-width: 80px; padding-bottom: 0; align-self: center; }
-  .prof-num-text { font-family: 'Luckiest Guy', cursive; font-size: 96px; line-height: 1; color: var(--ink); }
-  .prof-photo { width: 130px; height: 155px; object-fit: cover; object-position: top; border-radius: 8px 8px 0 0; flex-shrink: 0; border: 3px solid var(--ink); border-bottom: none; }
-  .prof-photo-placeholder { width: 130px; height: 155px; background: #ddd; border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center; color: #888; font-size: 48px; flex-shrink: 0; border: 3px solid var(--ink); border-bottom: none; }
+  .prof-num-text { font-family: 'Archivo', sans-serif; font-size: 96px; font-weight: 900; line-height: 1; color: var(--white); }
+  .prof-photo { width: 130px; height: 155px; object-fit: cover; object-position: top; border-radius: 8px 8px 0 0; flex-shrink: 0; border: 1px solid var(--line); border-bottom: none; }
+  .prof-photo-placeholder { width: 130px; height: 155px; background: var(--panel-2); border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 48px; flex-shrink: 0; border: 1px solid var(--line); border-bottom: none; }
   .prof-name-block { flex: 1; padding-bottom: 20px; }
-  .prof-name { font-family: 'Luckiest Guy', cursive; font-size: 38px; color: var(--ink); line-height: 1; }
-  .prof-nickname { font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--red); margin-top: 5px; }
-  .prof-meta { font-size: 13px; color: #333; margin-top: 7px; line-height: 1.7; font-weight: 700; }
-  .prof-quote { font-style: italic; font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1.45; border-left: 5px solid var(--red); padding: 12px 18px; background: #fffce8; border-radius: 0 10px 10px 0; margin-bottom: 14px; }
-  .prof-bio { font-size: 14px; color: #333; line-height: 1.75; margin-bottom: 4px; background: var(--white); border: 4px solid var(--ink); border-radius: 14px; padding: 16px 18px; box-shadow: 5px 5px 0 var(--ink); font-weight: 700; }
-  .prof-sect { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: #666; margin: 18px 0 10px; }
+  .prof-name { font-family: 'Archivo', sans-serif; font-size: 38px; font-weight: 900; color: var(--white); line-height: 1; }
+  .prof-nickname { font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--red); margin-top: 5px; }
+  .prof-meta { font-size: 13px; color: var(--muted); margin-top: 7px; line-height: 1.7; font-weight: 700; }
+  .prof-quote { font-style: italic; font-size: 18px; font-weight: 800; color: var(--white); line-height: 1.45; border-left: 5px solid var(--red); padding: 12px 18px; background: var(--panel); border-radius: 0 10px 10px 0; margin-bottom: 14px; }
+  .prof-bio { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 4px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; box-shadow: none; font-weight: 700; }
+  .prof-sect { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: var(--muted); margin: 18px 0 10px; }
   .prof-kv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
-  .prof-kv { background: var(--white); border: 3px solid var(--ink); border-radius: 10px; padding: 10px 14px; box-shadow: 4px 4px 0 var(--ink); }
-  .kv-key { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #666; margin-bottom: 3px; }
-  .kv-val { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--ink); }
+  .prof-kv { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; box-shadow: none; }
+  .kv-key { font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 3px; }
+  .kv-val { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--white); }
   .prof-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 4px; }
-  .prof-stat { background: var(--white); border: 3px solid var(--ink); border-radius: 10px; padding: 12px 10px; text-align: center; box-shadow: 4px 4px 0 var(--ink); }
-  .prof-stat-n { font-family: 'Luckiest Guy', cursive; font-size: 28px; color: var(--red); line-height: 1; }
-  .prof-stat-l { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-top: 4px; }
-  .prof-finish-row { display: flex; align-items: center; gap: 14px; padding: 9px 14px; border-radius: 10px; background: var(--white); border: 3px solid var(--ink); margin-bottom: 6px; box-shadow: 3px 3px 0 var(--ink); }
-  .prof-finish-pos { font-family: 'Luckiest Guy', cursive; font-size: 26px; min-width: 36px; text-align: center; color: #888; }
+  .prof-stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 10px; text-align: center; box-shadow: none; }
+  .prof-stat-n { font-family: 'Archivo', sans-serif; font-size: 28px; font-weight: 900; color: var(--red); line-height: 1; }
+  .prof-stat-l { font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-top: 4px; }
+  .prof-finish-row { display: flex; align-items: center; gap: 14px; padding: 9px 14px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); margin-bottom: 6px; box-shadow: none; }
+  .prof-finish-pos { font-family: 'Archivo', sans-serif; font-size: 26px; font-weight: 900; min-width: 36px; text-align: center; color: var(--muted); }
   .prof-finish-pos.p1 { color: var(--red); }
-  .prof-finish-pos.p2 { color: #aaa; }
+  .prof-finish-pos.p2 { color: var(--muted); }
   .prof-finish-pos.p3 { color: #c8a26a; }
-  .prof-finish-name { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--ink); }
-  .prof-finish-date { font-size: 12px; color: #666; margin-top: 2px; font-weight: 700; }
+  .prof-finish-name { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--white); }
+  .prof-finish-date { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 700; }
   @media(max-width:600px) {
     .prof-hero { flex-wrap: wrap; }
     .prof-photo, .prof-photo-placeholder { width: 100px; height: 120px; }
@@ -320,45 +332,45 @@
   }
 
   /* 13 SECOND CLUB */
-  .club-card { background: var(--ink); border: 5px solid var(--ink); border-radius: 18px; padding: 22px 22px 14px; margin-bottom: 16px; box-shadow: 8px 8px 0 var(--yellow); }
+  .club-card { background: var(--panel); border: 1px solid var(--line); border-top: 3px solid var(--yellow); border-radius: 18px; padding: 22px 22px 14px; margin-bottom: 16px; box-shadow: none; }
   .club-header { margin-bottom: 6px; }
   .club-trophy { font-size: 28px; margin-bottom: 6px; }
-  .club-title { font-family: 'Luckiest Guy', cursive; font-size: 28px; color: var(--yellow); line-height: 1; margin-bottom: 4px; }
-  .club-subtitle { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #666; margin-bottom: 16px; }
-  .club-divider { border: none; border-top: 2px solid rgba(229,222,43,0.25); margin: 0 0 10px; }
-  .club-empty { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #555; text-align: center; padding: 14px 0 6px; }
-  .club-member { display: flex; align-items: center; gap: 14px; padding: 10px 4px; border-bottom: 1px solid rgba(229,222,43,0.15); }
+  .club-title { font-family: 'Archivo', sans-serif; font-size: 28px; font-weight: 900; color: var(--yellow); line-height: 1; margin-bottom: 4px; }
+  .club-subtitle { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 16px; }
+  .club-divider { border: none; border-top: 1px solid var(--line); margin: 0 0 10px; }
+  .club-empty { font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); text-align: center; padding: 14px 0 6px; }
+  .club-member { display: flex; align-items: center; gap: 14px; padding: 10px 4px; border-bottom: 1px solid var(--line); }
   .club-member:last-child { border-bottom: none; }
-  .club-rank { font-family: 'Luckiest Guy', cursive; font-size: 18px; color: #555; min-width: 22px; text-align: center; }
+  .club-rank { font-family: 'Archivo', sans-serif; font-size: 18px; font-weight: 900; color: var(--muted); min-width: 22px; text-align: center; }
   .club-rank.r1 { color: var(--yellow); font-size: 22px; }
   .club-info { flex: 1; min-width: 0; }
-  .club-name { font-family: 'Nunito', sans-serif; font-size: 20px; font-weight: 900; text-transform: uppercase; color: #ddd; line-height: 1.1; }
+  .club-name { font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 900; text-transform: uppercase; color: var(--white); line-height: 1.1; }
   .club-name.p1 { font-size: 24px; color: var(--yellow); }
-  .club-date { font-size: 11px; color: #666; margin-top: 2px; letter-spacing: 0.5px; }
+  .club-date { font-size: 11px; color: var(--muted); margin-top: 2px; letter-spacing: 0.5px; }
   .club-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; margin-left: auto; }
-  .club-laptime { font-family: 'Luckiest Guy', cursive; font-size: 28px; color: var(--yellow); line-height: 1; }
+  .club-laptime { font-family: 'Archivo', sans-serif; font-size: 28px; font-weight: 900; color: var(--yellow); line-height: 1; }
   .club-laptime.p1 { font-size: 34px; }
-  .club-badge { font-family: 'Nunito', sans-serif; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border: 1px solid rgba(175,51,44,0.5); padding: 2px 7px; border-radius: 4px; }
+  .club-badge { font-family: 'Archivo', sans-serif; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border: 1px solid rgba(224,35,28,0.5); padding: 2px 7px; border-radius: 4px; }
 
   /* SPONSORS */
-  .sponsor-presenting { background: var(--yellow); border: 5px solid var(--ink); border-radius: 18px; padding: 32px 20px; text-align: center; margin-bottom: 14px; box-shadow: 8px 8px 0 var(--ink); }
-  .sponsor-presenting-name { font-family: 'Luckiest Guy', cursive; font-size: 34px; color: var(--ink); margin-top: 10px; }
+  .sponsor-presenting { background: var(--panel); border: 1px solid var(--yellow); border-radius: 18px; padding: 32px 20px; text-align: center; margin-bottom: 14px; box-shadow: none; }
+  .sponsor-presenting-name { font-family: 'Archivo', sans-serif; font-size: 34px; font-weight: 900; color: var(--white); margin-top: 10px; }
   .sponsor-presenting img { max-height: 110px; max-width: 260px; object-fit: contain; display: block; margin: 0 auto; }
-  .sponsor-tier-lbl { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: #666; margin: 20px 0 10px; }
+  .sponsor-tier-lbl { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: var(--muted); margin: 20px 0 10px; }
   .sponsor-class-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 10px; margin-bottom: 14px; }
-  .sponsor-class-card { background: var(--white); border: 4px solid var(--ink); border-radius: 14px; padding: 22px 16px; text-align: center; box-shadow: 6px 6px 0 var(--ink); }
-  .sponsor-class-name { font-family: 'Nunito', sans-serif; font-size: 20px; font-weight: 900; text-transform: uppercase; color: var(--ink); margin-top: 8px; }
+  .sponsor-class-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px 16px; text-align: center; box-shadow: none; }
+  .sponsor-class-name { font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 900; text-transform: uppercase; color: var(--white); margin-top: 8px; }
   .sponsor-class-card img { max-height: 72px; max-width: 100%; object-fit: contain; display: block; margin: 0 auto; }
   .sponsor-support-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: 8px; }
-  .sponsor-support-card { background: var(--white); border: 3px solid var(--ink); border-radius: 10px; padding: 16px 10px; text-align: center; box-shadow: 4px 4px 0 var(--ink); }
-  .sponsor-support-name { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; color: #333; margin-top: 6px; }
+  .sponsor-support-card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 10px; text-align: center; box-shadow: none; }
+  .sponsor-support-name { font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; color: var(--white); margin-top: 6px; }
   .sponsor-support-card img { max-height: 48px; max-width: 100%; object-fit: contain; display: block; margin: 0 auto; }
-  .sponsor-contact { background: var(--white); border: 4px solid var(--ink); border-radius: 16px; padding: 24px; text-align: center; box-shadow: 6px 6px 0 var(--ink); }
-  .sponsor-contact h3 { font-family: 'Luckiest Guy', cursive; font-size: 20px; color: var(--red); margin-bottom: 8px; }
-  .sponsor-contact p { font-size: 13px; color: #333; line-height: 1.7; font-weight: 700; }
+  .sponsor-contact { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px; text-align: center; box-shadow: none; }
+  .sponsor-contact h3 { font-family: 'Archivo', sans-serif; font-size: 20px; font-weight: 900; color: var(--red); margin-bottom: 8px; }
+  .sponsor-contact p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 700; }
 
   /* VIDEO BOARD */
-  .video-board { border-radius: 16px; overflow: hidden; border: 5px solid var(--ink); aspect-ratio: 16/9; background: var(--ink); margin-bottom: 18px; box-shadow: 8px 8px 0 var(--ink); }
+  .video-board { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16/9; background: var(--panel); margin-bottom: 18px; box-shadow: none; }
   .video-board iframe { width: 100%; height: 100%; display: block; border: none; }
 
   /* ANNOUNCEMENTS */
@@ -370,7 +382,7 @@
   .ann-reschedule { background: #6a3800; border-bottom: 3px solid var(--yellow); }
   .ann-general { background: var(--ink); border-bottom: 3px solid var(--yellow); }
   .ann-race_night_reminder { background: #3a2060; border-bottom: 3px solid var(--yellow); }
-  .announce-msg { font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; flex: 1; text-align: center; }
+  .announce-msg { font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; flex: 1; text-align: center; }
   .announce-time { font-size: 11px; color: rgba(255,255,255,0.45); white-space: nowrap; flex-shrink: 0; font-weight: 700; }
   .announce-close { background: none; border: none; color: rgba(255,255,255,0.5); font-size: 22px; cursor: pointer; padding: 0 2px; line-height: 1; flex-shrink: 0; transition: color 0.1s; }
   .announce-close:hover { color: #fff; }
@@ -383,7 +395,7 @@
 <header class="site-header">
   <img class="header-kart" src="kart.jpg" alt="">
   <div class="header-inner">
-    <div class="logo-badge"><img class="header-logo" src="logo.png" alt="YardKartz"></div>
+    <img class="header-logo" src="logo.png" alt="YardKartz">
     <div>
       <div class="header-league">2026 Stock Predator Championship</div>
       <div class="header-sub">The Handle · Westville, IN</div>
@@ -436,7 +448,7 @@
     <div id="home-top5"></div>
     <div class="sect-lbl" style="margin-top:10px">Latest from YardKartz</div>
     <div id="home-video-board" class="video-board" style="display:flex;align-items:center;justify-content:center;"><div class="loading">Loading video…</div></div>
-    <div id="home-video-title" style="font-size:12px;color:var(--text2);margin-top:6px;font-family:'Nunito',sans-serif;font-weight:700;letter-spacing:1px;"></div>
+    <div id="home-video-title" style="font-size:12px;color:var(--muted);margin-top:6px;font-family:'Archivo',sans-serif;font-weight:700;letter-spacing:1px;"></div>
   </div>
 
   <!-- DRIVERS -->
@@ -748,7 +760,7 @@
     <button class="wx-refresh-btn" onclick="loadWeather()" style="margin-bottom:14px">↻ Refresh</button>
     <div style="margin-top:16px">
       <div class="sect-lbl" style="margin-bottom:10px">Live Radar — Westville, IN</div>
-      <div style="border-radius:10px;overflow:hidden;border:1px solid var(--bdr);">
+      <div style="border-radius:10px;overflow:hidden;border:1px solid var(--line);">
         <iframe
           src="https://www.rainviewer.com/map.html?loc=41.5303,-87.0036,9&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&o=83&lm=0&layer=radar&sm=1&sn=1"
           width="100%"
@@ -757,7 +769,7 @@
           style="display:block;"
         ></iframe>
       </div>
-      <div style="font-size:11px;color:var(--text2);margin-top:6px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase;">Powered by RainViewer</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px;font-family:'Archivo',sans-serif;letter-spacing:1px;text-transform:uppercase;">Powered by RainViewer</div>
     </div>
   </div>
 
@@ -950,7 +962,7 @@ async function loadDrivers() {
                <span style="
                  display:inline-block;
                  transform:skewX(10deg);
-                 font-family:'Barlow Condensed',sans-serif;
+                 font-family:'Archivo',sans-serif;
                  font-size:20px;
                  font-weight:900;
                  color:#111;
@@ -1310,29 +1322,29 @@ function backToDrivers() {
 }
 
 const CUSTOM_NUMS = {
-  'Nolan McKim':   { src:'nolan7.png',      w:100, blend:'normal' },
-  'Eric Peek':     { src:'eric11.png',       w:110, blend:'normal' },
-  'Goose':         { src:'goose76.png',      w:110, blend:'normal' }, // still has black bg
-  'Connerz':       { src:'connerz72.png',    w:110, blend:'normal' },
-  'T Dirt':        { src:'tdirt418.png',     w:120, blend:'normal' },
-  'Mad Mike':      { src:'madmike28.png',    w:120, blend:'normal' },
-  'Tonka Tim':     { src:'tonkatim61.png',   w:110, blend:'normal' },
-  'Miller Lite':   { src:'millerlite13.png', w:110, blend:'normal' },
-  'Bowen':         { src:'bowen19.png',      w:110, blend:'normal' },
-  'Zack':          { src:'zack30.png',       w:110, blend:'normal' },
-  'Tony Miletich': { src:'tony22.png',       w:110, blend:'normal' },
-  'Biscuit':       { src:'buiscut54.png',    w:110, blend:'normal' },
-  'East Gary':     { src:'eastgary88.png',   w:120, blend:'normal' },
-  'Ronnie':        { src:'ronnie09.png',     w:120, blend:'normal' },
-  'Arthur Walstra':{ src:'arthur3.png',      w:100, blend:'normal' },
-  'Shawn Toczek':  { src:'shawn65.png',      w:110, blend:'normal' },
-  'Cole':          { src:'cole96.png',        w:120, blend:'normal' },
-  'John Nimetz':   { src:'john29.png',        w:110, blend:'normal' },
-  'Royce':         { src:'royce77.png',       w:120, blend:'normal' },
-  'Maxzilla':      { src:'maxzilla56.png',    w:120, blend:'normal' },
-  'Jordan Sculley':{ src:'jordan23.png',      w:120, blend:'normal' },
-  'Cole V':        { src:'colev25.png',       w:120, blend:'normal' },
-  'Matthew Deyoung':{ src:'matthew51.png',    w:110, blend:'normal' },
+  'Nolan McKim':   { src:'nolan7.png',      w:100, blend:'lighten' },
+  'Eric Peek':     { src:'eric11.png',       w:110, blend:'lighten' },
+  'Goose':         { src:'goose76.png',      w:110, blend:'lighten' }, // still has black bg
+  'Connerz':       { src:'connerz72.png',    w:110, blend:'lighten' },
+  'T Dirt':        { src:'tdirt418.png',     w:120, blend:'lighten' },
+  'Mad Mike':      { src:'madmike28.png',    w:120, blend:'lighten' },
+  'Tonka Tim':     { src:'tonkatim61.png',   w:110, blend:'lighten' },
+  'Miller Lite':   { src:'millerlite13.png', w:110, blend:'lighten' },
+  'Bowen':         { src:'bowen19.png',      w:110, blend:'lighten' },
+  'Zack':          { src:'zack30.png',       w:110, blend:'lighten' },
+  'Tony Miletich': { src:'tony22.png',       w:110, blend:'lighten' },
+  'Biscuit':       { src:'buiscut54.png',    w:110, blend:'lighten' },
+  'East Gary':     { src:'eastgary88.png',   w:120, blend:'lighten' },
+  'Ronnie':        { src:'ronnie09.png',     w:120, blend:'lighten' },
+  'Arthur Walstra':{ src:'arthur3.png',      w:100, blend:'lighten' },
+  'Shawn Toczek':  { src:'shawn65.png',      w:110, blend:'lighten' },
+  'Cole':          { src:'cole96.png',        w:120, blend:'lighten' },
+  'John Nimetz':   { src:'john29.png',        w:110, blend:'lighten' },
+  'Royce':         { src:'royce77.png',       w:120, blend:'lighten' },
+  'Maxzilla':      { src:'maxzilla56.png',    w:120, blend:'lighten' },
+  'Jordan Sculley':{ src:'jordan23.png',      w:120, blend:'lighten' },
+  'Cole V':        { src:'colev25.png',       w:120, blend:'lighten' },
+  'Matthew Deyoung':{ src:'matthew51.png',    w:110, blend:'lighten' },
 };
 
 function getDriverNumEl(name, number, size=48) {
@@ -1341,10 +1353,10 @@ function getDriverNumEl(name, number, size=48) {
 
   if (custom) {
     const imgFz = Math.round(size * 0.75);
-    return `<img src="${custom.src}" alt="${number}" style="height:${size}px;width:auto;object-fit:contain;mix-blend-mode:${custom.blend};vertical-align:middle;display:inline-block;" onerror="this.outerHTML='<span style=\'font-family:Luckiest Guy,cursive;font-size:${imgFz}px;color:#141414;line-height:1;vertical-align:middle;\'>${number}</span>'">`;
+    return `<img src="${custom.src}" alt="${number}" style="height:${size}px;width:auto;object-fit:contain;mix-blend-mode:${custom.blend};vertical-align:middle;display:inline-block;" onerror="this.outerHTML='<span style=\'font-family:Archivo,sans-serif;font-weight:900;font-size:${imgFz}px;color:#ffffff;line-height:1;vertical-align:middle;\'>${number}</span>'">`;
   }
 
-  return `<span style="font-family:'Luckiest Guy',cursive;font-size:${fz}px;color:#141414;line-height:1;vertical-align:middle;">${number}</span>`;
+  return `<span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:${fz}px;color:#ffffff;line-height:1;vertical-align:middle;">${number}</span>`;
 }
 
 async function showDriverProfile(id) {
@@ -1558,7 +1570,7 @@ async function loadLatestVideo() {
   } catch(e) {
     el.style.aspectRatio = '';
     el.style.minHeight = '80px';
-    el.innerHTML = `<a href="https://www.youtube.com/@yardkartz" target="_blank" style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange);text-decoration:none;border:1px solid var(--orange);padding:10px 22px;border-radius:7px;">▶ Watch on YouTube</a>`;
+    el.innerHTML = `<a href="https://www.youtube.com/@yardkartz" target="_blank" style="font-family:'Archivo',sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--red);text-decoration:none;border:1px solid var(--red);padding:10px 22px;border-radius:7px;">▶ Watch on YouTube</a>`;
   }
 }
 

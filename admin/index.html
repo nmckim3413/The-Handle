@@ -4,34 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — The Handle</title>
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --red: #AF332C; --yellow: #E5DE2B; --ink: #141414; --white: #FFFFFF;
-    --orange: #AF332C;
-    --text: #141414; --text2: #555555;
-    --bdr: #d0d0d0; --bg: #F5F5F5; --bg2: #FFFFFF; --bg3: #EEEEEE;
+    --red: #E0231C; --yellow: #F4E40F; --ink: #141414; --white: #ffffff;
+    --orange: #E0231C;
+    --text: #ffffff; --text2: #9a9a9a;
+    --bdr: #2a2a2a; --bg: #0a0a0a; --bg2: #141414; --bg3: #1c1c1c;
+    --panel: #141414; --panel-2: #1c1c1c; --line: #2a2a2a; --muted: #9a9a9a;
     --asphalt: #141414; --asphalt-mid: #1e1e1e;
     --green: #2D8B45; --red-comp: #C0392B;
   }
-  body { font-family: 'Nunito', sans-serif; background: var(--bg); background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 22px 22px; color: var(--ink); min-height: 100vh; }
+  body { font-family: 'Archivo', sans-serif; background: #0a0a0a; color: var(--white); min-height: 100vh; }
 
   /* ADMIN HEADER */
-  .admin-header { background: var(--ink); border-bottom: 5px solid var(--yellow); padding: 0 20px; }
+  .admin-header { background: var(--panel); border-bottom: 1px solid var(--line); padding: 0 20px; }
   .admin-header-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0 12px; }
-  .admin-logo { font-family: 'Luckiest Guy', cursive; font-size: 28px; color: var(--yellow); }
-  .admin-badge { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; background: var(--red); color: var(--white); border: 2px solid var(--yellow); padding: 4px 10px; border-radius: 6px; }
-  .back-link { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); text-decoration: none; }
+  .admin-logo { font-family: 'Archivo', sans-serif; font-size: 28px; font-weight: 900; color: var(--yellow); }
+  .admin-badge { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; background: var(--red); color: var(--white); border: 1px solid var(--line); padding: 4px 10px; border-radius: 6px; }
+  .back-link { font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); text-decoration: none; }
   .back-link:hover { color: var(--yellow); }
 
   /* ADMIN NAV */
-  .admin-nav { background: var(--ink); border-bottom: 3px solid var(--yellow); padding: 0 20px; }
+  .admin-nav { background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); padding: 0 20px; position: sticky; top: 0; z-index: 100; }
   .admin-nav-inner { max-width: 800px; margin: 0 auto; display: flex; overflow-x: auto; gap: 5px; padding: 8px 0 6px; }
   .admin-nav-inner::-webkit-scrollbar { display: none; }
-  .admin-nav-inner button { background: transparent; border: 2px solid rgba(255,255,255,0.2); border-radius: 8px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.5); padding: 6px 13px; cursor: pointer; transition: all 0.1s; white-space: nowrap; box-shadow: none; }
-  .admin-nav-inner button:hover { color: var(--white); border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); }
-  .admin-nav-inner button.active { background: var(--red); color: var(--white); border-color: var(--yellow); box-shadow: 2px 2px 0 var(--yellow); }
+  .admin-nav-inner button { background: transparent; border: none; border-radius: 0; font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); padding: 6px 13px; cursor: pointer; transition: all 0.1s; white-space: nowrap; box-shadow: none; border-bottom: 3px solid transparent; }
+  .admin-nav-inner button:hover { color: var(--white); }
+  .admin-nav-inner button.active { background: transparent; color: var(--white); border-bottom: 3px solid var(--red); }
 
   /* MAIN */
   .admin-main { max-width: 800px; margin: 0 auto; padding: 24px 20px 48px; }
@@ -39,51 +40,51 @@
   .admin-page.active { display: block; }
 
   /* CARDS */
-  .card { background: var(--white); border-radius: 16px; border: 4px solid var(--ink); padding: 20px 22px; margin-bottom: 16px; box-shadow: 6px 6px 0 var(--ink); }
-  .card-title { font-family: 'Luckiest Guy', cursive; font-size: 16px; color: var(--ink); margin-bottom: 16px; border-bottom: 3px solid var(--ink); padding-bottom: 10px; }
+  .card { background: var(--panel); border-radius: 16px; border: 1px solid var(--line); padding: 20px 22px; margin-bottom: 16px; box-shadow: none; }
+  .card-title { font-family: 'Archivo', sans-serif; font-size: 16px; font-weight: 900; color: var(--white); margin-bottom: 16px; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
 
   /* FORMS */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .form-grid.full { grid-template-columns: 1fr; }
   .form-group { display: flex; flex-direction: column; gap: 5px; }
-  .form-group label { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #555; }
-  .form-group input, .form-group select { background: var(--bg); border: 3px solid var(--ink); border-radius: 8px; padding: 9px 12px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: var(--ink); width: 100%; transition: all 0.1s; }
-  .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--red); box-shadow: 3px 3px 0 var(--red); }
+  .form-group label { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
+  .form-group input, .form-group select { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 9px 12px; font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 700; color: var(--white); width: 100%; transition: all 0.1s; }
+  .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 2px rgba(224,35,28,0.2); }
 
   /* BUTTONS */
-  .btn { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border: 3px solid var(--ink); border-radius: 8px; cursor: pointer; transition: all 0.1s; box-shadow: 3px 3px 0 var(--ink); }
-  .btn-primary { background: var(--red); color: var(--white); }
-  .btn-primary:hover { background: #8a2820; transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
-  .btn-danger { background: var(--white); border: 2px solid #ddd; color: var(--red-comp); font-size: 12px; padding: 5px 10px; border-radius: 6px; box-shadow: 2px 2px 0 #ccc; }
-  .btn-danger:hover { background: var(--red); color: var(--white); border-color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  .btn { font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; transition: all 0.1s; box-shadow: none; }
+  .btn-primary { background: var(--red); color: var(--white); border-color: var(--red); }
+  .btn-primary:hover { background: #bf1c17; }
+  .btn-danger { background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); font-size: 12px; padding: 5px 10px; border-radius: 6px; box-shadow: none; }
+  .btn-danger:hover { background: var(--red); color: var(--white); border-color: var(--red); }
 
   /* ITEM LIST */
-  .item-list { margin-top: 16px; border-top: 3px solid var(--ink); padding-top: 14px; }
-  .item-list-title { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #666; margin-bottom: 10px; }
-  .item-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 10px; background: var(--bg); border: 3px solid var(--ink); margin-bottom: 6px; gap: 10px; box-shadow: 3px 3px 0 var(--ink); }
-  .item-name { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; }
-  .item-meta { font-size: 12px; color: #666; font-weight: 700; }
+  .item-list { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .item-list-title { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 10px; }
+  .item-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--line); margin-bottom: 6px; gap: 10px; box-shadow: none; }
+  .item-name { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--white); }
+  .item-meta { font-size: 12px; color: var(--muted); font-weight: 700; }
 
   /* TOAST */
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--ink); color: var(--yellow); padding: 12px 24px; border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.3s; z-index: 9999; border: 3px solid var(--yellow); box-shadow: 4px 4px 0 var(--yellow); }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--panel); color: var(--yellow); padding: 12px 24px; border-radius: 10px; font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.3s; z-index: 9999; border: 1px solid var(--yellow); box-shadow: none; }
   .toast.show { transform: translateX(-50%) translateY(0); }
-  .toast.error { border-color: var(--red); color: var(--red); box-shadow: 4px 4px 0 var(--red); }
+  .toast.error { border-color: var(--red); color: var(--red); }
 
   @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
 
   /* IMPORT / EXPORT */
-  .btn-outline { background: var(--white); border: 3px solid var(--ink); color: var(--ink); font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border-radius: 8px; cursor: pointer; transition: all 0.1s; box-shadow: 3px 3px 0 var(--ink); }
-  .btn-outline:hover { background: var(--bg3); }
-  .file-label { display: inline-flex; align-items: center; gap: 8px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border: 3px solid var(--ink); border-radius: 8px; color: var(--red); cursor: pointer; transition: all 0.1s; box-shadow: 3px 3px 0 var(--ink); background: var(--white); }
-  .file-label:hover { background: var(--red); color: var(--white); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+  .btn-outline { background: var(--panel-2); border: 1px solid var(--line); color: var(--white); font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border-radius: 8px; cursor: pointer; transition: all 0.1s; box-shadow: none; }
+  .btn-outline:hover { background: var(--panel); border-color: var(--red); }
+  .file-label { display: inline-flex; align-items: center; gap: 8px; font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; padding: 9px 18px; border: 1px solid var(--line); border-radius: 8px; color: var(--red); cursor: pointer; transition: all 0.1s; box-shadow: none; background: var(--panel-2); }
+  .file-label:hover { background: var(--red); color: var(--white); border-color: var(--red); }
   .preview-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
-  .preview-table th { font-family: 'Luckiest Guy', cursive; font-size: 11px; color: var(--yellow); text-align: left; padding: 8px 10px; background: var(--ink); }
-  .preview-table td { padding: 7px 10px; border-bottom: 2px solid var(--ink); vertical-align: top; font-weight: 700; }
-  .preview-table tr.row-error td { background: rgba(175,51,44,0.08); color: var(--red); }
-  .preview-table tr.row-warn td { background: rgba(229,222,43,0.15); }
-  .warning-box { background: #fffbe0; border: 3px solid var(--ink); border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; font-size: 13px; color: #7a5e00; font-weight: 700; }
-  .error-box { background: #fde8e8; border: 3px solid var(--red); border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; color: var(--red); font-weight: 700; }
-  .success-box { background: rgba(45,139,69,0.1); border: 3px solid var(--green); border-radius: 8px; padding: 12px 16px; font-size: 14px; color: var(--green); font-weight: 800; margin-bottom: 8px; }
+  .preview-table th { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; color: var(--yellow); text-align: left; padding: 8px 10px; background: var(--panel); }
+  .preview-table td { padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; font-weight: 700; color: var(--white); }
+  .preview-table tr.row-error td { background: rgba(224,35,28,0.12); color: var(--red); }
+  .preview-table tr.row-warn td { background: rgba(244,228,15,0.08); }
+  .warning-box { background: rgba(244,228,15,0.08); border: 1px solid var(--yellow); border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; font-size: 13px; color: var(--yellow); font-weight: 700; }
+  .error-box { background: rgba(224,35,28,0.12); border: 1px solid var(--red); border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; color: var(--red); font-weight: 700; }
+  .success-box { background: rgba(45,139,69,0.1); border: 1px solid var(--green); border-radius: 8px; padding: 12px 16px; font-size: 14px; color: var(--green); font-weight: 800; margin-bottom: 8px; }
   .import-confirm-area { display: flex; gap: 10px; margin-top: 16px; align-items: center; flex-wrap: wrap; }
 </style>
 </head>
@@ -298,10 +299,10 @@
           <div class="form-group" style="grid-column:1/-1"><label>Career Highlight</label><input id="pf-career_highlight" placeholder="Won the 2025 championship by 3 points"></div>
         </div>
       </div>
-      <div class="card" style="background:rgba(242,100,25,0.06);border-color:rgba(242,100,25,0.3)">
+      <div class="card" style="background:rgba(224,35,28,0.06);border-color:rgba(224,35,28,0.3)">
         <div class="card-title" style="color:var(--orange)">Supabase SQL — Run Once</div>
-        <p style="font-size:12px;color:var(--text2);margin-bottom:10px">Run this in your Supabase SQL editor to add the profile columns if you haven't already:</p>
-        <pre style="background:var(--bg3);border-radius:6px;padding:12px;font-size:11px;color:var(--text);overflow-x:auto;line-height:1.6">ALTER TABLE drivers
+        <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Run this in your Supabase SQL editor to add the profile columns if you haven't already:</p>
+        <pre style="background:var(--panel-2);border-radius:6px;padding:12px;font-size:11px;color:var(--muted);overflow-x:auto;line-height:1.6">ALTER TABLE drivers
   ADD COLUMN IF NOT EXISTS nickname text,
   ADD COLUMN IF NOT EXISTS hometown text,
   ADD COLUMN IF NOT EXISTS age integer,
@@ -342,10 +343,10 @@
     <div class="card">
       <div class="card-title">Quick Actions</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn" style="background:#0d2340;color:#7bb8f5;border:1px solid #1c4a80" onclick="quickAnnounce('Rain Delay',&quot;Tonight’s race has been delayed due to weather. Check back for updates.&quot;)">&#127783; Rain Delay</button>
-        <button class="btn" style="background:#3a0a0a;color:#f58080;border:1px solid #6a2020" onclick="quickAnnounce('Cancellation',&quot;Tonight’s race has been cancelled due to weather. We will announce the makeup date soon.&quot;)">&#10060; Race Cancelled</button>
-        <button class="btn" style="background:#0a2a14;color:#7bd49c;border:1px solid #1a5c30" onclick="allClearAnnounce()">&#9989; All Clear</button>
-        <button class="btn" style="background:#2a1600;color:#f5b040;border:1px solid #5c3800" onclick="quickAnnounce('Reschedule',&quot;Tonight’s race has been rescheduled. Stay tuned for the new date.&quot;)">&#128197; Rescheduled</button>
+        <button class="btn" style="background:rgba(13,35,64,0.6);color:#7bb8f5;border:1px solid #1c4a80" onclick="quickAnnounce(‘Rain Delay’,&quot;Tonight’s race has been delayed due to weather. Check back for updates.&quot;)">&#127783; Rain Delay</button>
+        <button class="btn" style="background:rgba(58,10,10,0.6);color:#f58080;border:1px solid #6a2020" onclick="quickAnnounce(‘Cancellation’,&quot;Tonight’s race has been cancelled due to weather. We will announce the makeup date soon.&quot;)">&#10060; Race Cancelled</button>
+        <button class="btn" style="background:rgba(10,42,20,0.6);color:#7bd49c;border:1px solid #1a5c30" onclick="allClearAnnounce()">&#9989; All Clear</button>
+        <button class="btn" style="background:rgba(42,22,0,0.6);color:#f5b040;border:1px solid #5c3800" onclick="quickAnnounce(‘Reschedule’,&quot;Tonight’s race has been rescheduled. Stay tuned for the new date.&quot;)">&#128197; Rescheduled</button>
       </div>
     </div>
 
@@ -354,7 +355,7 @@
       <div class="form-grid">
         <div class="form-group" style="grid-column:1/-1">
           <label>Message</label>
-          <textarea id="ann-msg" rows="3" style="background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:9px 12px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--text);width:100%;resize:vertical;transition:border-color 0.12s" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='var(--bdr)'" placeholder="Tonight's race is on!"></textarea>
+          <textarea id="ann-msg" rows="3" style="background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:9px 12px;font-family:'Archivo',sans-serif;font-size:14px;color:var(--white);width:100%;resize:vertical;transition:border-color 0.12s" onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor='var(--line)'" placeholder="Tonight's race is on!"></textarea>
         </div>
         <div class="form-group">
           <label>Type</label>
@@ -379,7 +380,7 @@
     </div>
 
     <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr);padding-bottom:10px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px">
         <div class="card-title" style="margin-bottom:0;border-bottom:none;padding-bottom:0">Active &amp; Recent</div>
         <button class="btn btn-danger" onclick="deactivateAll()">Deactivate All</button>
       </div>
@@ -680,7 +681,7 @@
       const statusColor = a.active ? 'var(--green)' : 'var(--text2)';
       return `<div class="item-row" style="align-items:flex-start">
         <div style="flex:1;min-width:0">
-          <div style="font-family:'Barlow',sans-serif;font-size:13px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:3px">${a.message}</div>
+          <div style="font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:3px">${a.message}</div>
           <div class="item-meta">${a.type} · ${annTimeAgo(a.created_at)} · <span style="color:${statusColor};font-weight:700">${a.active ? 'Active' : 'Inactive'}</span></div>
         </div>
         <div style="display:flex;gap:6px;flex-shrink:0;margin-left:10px">

@@ -4,93 +4,104 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Driver Profile Setup — YardKartz</title>
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --red: #AF332C; --yellow: #E5DE2B; --ink: #141414; --white: #FFFFFF;
-    --orange: #AF332C;
-    --text: #141414; --text2: #555555;
-    --bdr: #141414; --bdr2: #444444;
-    --bg: #FFFFFF; --bg2: #FFFFFF; --bg3: #F0EFE8;
+    --red: #E0231C; --yellow: #F4E40F; --ink: #141414; --white: #ffffff;
+    --orange: #E0231C;
+    --text: #ffffff; --text2: #9a9a9a;
+    --bdr: #2a2a2a; --bdr2: #2a2a2a;
+    --bg: #0a0a0a; --bg2: #141414; --bg3: #1c1c1c;
+    --panel: #141414; --panel-2: #1c1c1c; --line: #2a2a2a; --muted: #9a9a9a;
     --asphalt: #141414; --asphalt-mid: #1e1e1e; --asphalt-light: #2a2a2a;
     --green: #2D8B45; --red-compat: #C0392B;
   }
-  body { font-family: 'Nunito', sans-serif; background: var(--white); background-image: radial-gradient(circle, rgba(0,0,0,0.055) 1px, transparent 1px); background-size: 22px 22px; color: var(--ink); min-height: 100vh; }
+  body { font-family: 'Archivo', sans-serif; background: #0a0a0a; color: var(--white); min-height: 100vh; }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 40% at top left, rgba(224,35,28,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at bottom right, rgba(244,228,15,0.04) 0%, transparent 60%);
+    z-index: 0;
+  }
 
   /* HEADER */
-  .site-header { background: var(--white); border-bottom: 5px solid var(--ink); padding: 0 20px; position: relative; }
+  .site-header { background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--line); padding: 0 20px; position: relative; }
   .header-kart { display: none; }
   .header-inner { max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 14px; padding: 12px 0 10px; position: relative; z-index: 1; }
-  .logo-badge { background: var(--ink); border-radius: 14px; padding: 5px 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .header-logo { height: 48px; object-fit: contain; }
-  .header-league { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2.5px; color: var(--red); margin-bottom: 2px; }
-  .header-sub { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #666; }
-  .header-badge { margin-left: auto; font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--white); background: var(--red); border: 3px solid var(--ink); border-radius: 8px; padding: 4px 10px; box-shadow: 3px 3px 0 var(--ink); }
+  .logo-badge { display: none; }
+  .header-logo { height: 48px; object-fit: contain; flex-shrink: 0; }
+  .header-league { font-family: 'Archivo', sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 2.5px; color: var(--red); margin-bottom: 2px; }
+  .header-sub { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
+  .header-badge { margin-left: auto; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--white); background: var(--red); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; box-shadow: none; }
 
   /* CHECKERED STRIP */
-  .checkered-strip { height: 16px; background-color: var(--ink); background-image: linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%), linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%); background-size: 16px 16px; background-position: 0 0, 8px 8px; }
+  .checkered-strip { height: 16px; background-color: var(--ink); background-image: linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%), linear-gradient(45deg, var(--white) 25%, transparent 25%, transparent 75%, var(--white) 75%); background-size: 16px 16px; background-position: 0 0, 8px 8px; border-top: 2px solid var(--red); border-bottom: 2px solid var(--red); }
 
   /* MAIN */
-  .page-main { max-width: 720px; margin: 0 auto; padding: 28px 20px 60px; }
-  .page-title { font-family: 'Luckiest Guy', cursive; font-size: 30px; color: var(--ink); margin-bottom: 4px; }
-  .page-sub { font-size: 14px; color: #555; margin-bottom: 28px; line-height: 1.5; font-weight: 700; }
+  .page-main { max-width: 720px; margin: 0 auto; padding: 28px 20px 60px; position: relative; z-index: 1; }
+  .page-title { font-family: 'Archivo', sans-serif; font-size: 30px; font-weight: 900; color: var(--white); margin-bottom: 4px; }
+  .page-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.5; font-weight: 700; }
 
   /* CARDS */
-  .card { background: var(--white); border: 4px solid var(--ink); border-radius: 18px; padding: 22px 24px; margin-bottom: 16px; box-shadow: 7px 7px 0 var(--ink); }
-  .card-title { font-family: 'Luckiest Guy', cursive; font-size: 15px; color: var(--red); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 3px solid var(--ink); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; margin-bottom: 16px; box-shadow: none; }
+  .card-title { font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 900; color: var(--red); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
 
   /* FORM ELEMENTS */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .form-group { display: flex; flex-direction: column; gap: 6px; }
   .form-group.full { grid-column: 1 / -1; }
-  label { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: #555; }
-  input[type="text"], input[type="number"], select, textarea { background: var(--white); border: 3px solid var(--ink); border-radius: 8px; padding: 10px 14px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: var(--ink); width: 100%; transition: border-color 0.1s, box-shadow 0.1s; appearance: none; }
-  input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--red); box-shadow: 3px 3px 0 var(--red); }
-  input::placeholder, textarea::placeholder { color: #aaa; font-weight: 700; }
+  label { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
+  input[type="text"], input[type="number"], select, textarea { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 700; color: var(--white); width: 100%; transition: border-color 0.1s, box-shadow 0.1s; appearance: none; }
+  input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 2px rgba(224,35,28,0.2); }
+  input::placeholder, textarea::placeholder { color: var(--muted); font-weight: 700; }
   textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
-  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23141414' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239a9a9a' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
 
   /* RADIO GROUPS */
   .radio-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
   .radio-option { position: relative; }
   .radio-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
-  .radio-option label { display: flex; align-items: center; gap: 7px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--white); border: 3px solid var(--ink); border-radius: 8px; padding: 7px 14px; cursor: pointer; color: var(--ink); transition: all 0.1s; white-space: nowrap; box-shadow: 3px 3px 0 var(--ink); }
-  .radio-option input[type="radio"]:checked + label { background: var(--red); border-color: var(--ink); color: var(--white); transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
-  .radio-option label:hover { background: var(--yellow); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+  .radio-option label { display: flex; align-items: center; gap: 7px; font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 7px 14px; cursor: pointer; color: var(--muted); transition: all 0.1s; white-space: nowrap; box-shadow: none; }
+  .radio-option input[type="radio"]:checked + label { background: var(--red); border-color: var(--red); color: var(--white); transform: none; box-shadow: none; }
+  .radio-option label:hover { background: var(--panel-2); border-color: var(--red); color: var(--white); transform: none; box-shadow: none; }
 
   /* PHOTO UPLOAD */
-  .photo-upload-area { border: 3px dashed var(--ink); border-radius: 14px; padding: 28px 20px; text-align: center; cursor: pointer; transition: all 0.15s; background: #f9f9f9; position: relative; }
-  .photo-upload-area:hover, .photo-upload-area.dragover { border-color: var(--red); background: #fffce8; }
+  .photo-upload-area { border: 1px dashed var(--line); border-radius: 14px; padding: 28px 20px; text-align: center; cursor: pointer; transition: all 0.15s; background: var(--panel-2); position: relative; }
+  .photo-upload-area:hover, .photo-upload-area.dragover { border-color: var(--red); background: var(--panel-2); }
   .photo-upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .upload-icon { font-size: 32px; margin-bottom: 8px; }
-  .upload-label { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #555; }
-  .upload-hint { font-size: 12px; color: #888; margin-top: 4px; font-weight: 700; }
+  .upload-label { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .upload-hint { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 700; }
   .photo-preview { display: none; width: 100%; max-width: 200px; margin: 0 auto; border-radius: 10px; overflow: hidden; }
-  .photo-preview img { width: 100%; height: 180px; object-fit: cover; object-position: top; border-radius: 8px; border: 3px solid var(--ink); }
-  .photo-preview .change-photo { font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-top: 8px; cursor: pointer; }
-  .upload-progress { height: 5px; background: #eee; border: 2px solid var(--ink); border-radius: 4px; margin-top: 10px; overflow: hidden; display: none; }
+  .photo-preview img { width: 100%; height: 180px; object-fit: cover; object-position: top; border-radius: 8px; border: 1px solid var(--line); }
+  .photo-preview .change-photo { font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-top: 8px; cursor: pointer; }
+  .upload-progress { height: 5px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 4px; margin-top: 10px; overflow: hidden; display: none; }
   .upload-progress-bar { height: 100%; background: var(--red); border-radius: 2px; width: 0%; transition: width 0.3s; }
 
   /* DRIVER SELECT */
-  .driver-select-hero { background: var(--yellow); border: 4px solid var(--ink); border-radius: 16px; padding: 22px 24px; margin-bottom: 16px; box-shadow: 6px 6px 0 var(--ink); }
-  .driver-select-hero label { font-family: 'Luckiest Guy', cursive; font-size: 16px; color: var(--ink); display: block; margin-bottom: 10px; }
-  .driver-select-hero select { font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; border-color: var(--ink); }
+  .driver-select-hero { background: var(--panel); border: 1px solid var(--line); border-left: 6px solid var(--red); border-radius: 16px; padding: 22px 24px; margin-bottom: 16px; box-shadow: none; }
+  .driver-select-hero label { font-family: 'Archivo', sans-serif; font-size: 16px; font-weight: 900; color: var(--white); display: block; margin-bottom: 10px; }
+  .driver-select-hero select { font-family: 'Archivo', sans-serif; font-size: 18px; font-weight: 900; border-color: var(--line); }
 
   /* SUBMIT */
-  .submit-btn { width: 100%; padding: 16px; font-family: 'Luckiest Guy', cursive; font-size: 22px; background: var(--red); color: var(--white); border: 4px solid var(--ink); border-radius: 12px; cursor: pointer; transition: all 0.1s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 6px 6px 0 var(--ink); }
-  .submit-btn:hover { background: #8a2820; transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--ink); }
-  .submit-btn:disabled { background: #ccc; color: #888; cursor: not-allowed; box-shadow: 2px 2px 0 var(--ink); transform: none; }
+  .submit-btn { width: 100%; padding: 16px; font-family: 'Archivo', sans-serif; font-size: 22px; font-weight: 900; background: var(--red); color: var(--white); border: none; border-radius: 12px; cursor: pointer; transition: all 0.1s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: none; }
+  .submit-btn:hover { background: #bf1c17; }
+  .submit-btn:disabled { background: var(--panel-2); color: var(--muted); cursor: not-allowed; box-shadow: none; transform: none; }
   .submit-spinner { width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   /* SUCCESS */
   .success-screen { display: none; text-align: center; padding: 60px 20px; }
   .success-icon { font-size: 64px; margin-bottom: 16px; }
-  .success-title { font-family: 'Luckiest Guy', cursive; font-size: 36px; color: var(--red); margin-bottom: 8px; }
-  .success-sub { font-size: 15px; color: #555; line-height: 1.6; font-weight: 700; }
-  .success-back { display: inline-block; margin-top: 24px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--white); text-decoration: none; background: var(--red); border: 3px solid var(--ink); border-radius: 8px; padding: 10px 22px; box-shadow: 4px 4px 0 var(--ink); transition: all 0.1s; }
-  .success-back:hover { background: #8a2820; transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+  .success-title { font-family: 'Archivo', sans-serif; font-size: 36px; font-weight: 900; color: var(--red); margin-bottom: 8px; }
+  .success-sub { font-size: 15px; color: var(--muted); line-height: 1.6; font-weight: 700; }
+  .success-back { display: inline-block; margin-top: 24px; font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: var(--white); text-decoration: none; background: var(--red); border: none; border-radius: 8px; padding: 10px 22px; box-shadow: none; transition: all 0.1s; }
+  .success-back:hover { background: #bf1c17; }
 
   /* ERROR */
   .field-error { font-size: 12px; color: var(--red); margin-top: 3px; display: none; font-weight: 800; }
@@ -103,7 +114,6 @@
     .form-group.full { grid-column: 1; }
     .radio-group { flex-direction: column; }
     .radio-option label { width: 100%; }
-    .logo-badge { padding: 4px 7px; }
     .header-logo { height: 40px; }
   }
 </style>
@@ -113,7 +123,7 @@
 <header class="site-header">
   <img class="header-kart" src="kart.jpg" alt="">
   <div class="header-inner">
-    <div class="logo-badge"><img class="header-logo" src="logo.png" alt="YardKartz"></div>
+    <img class="header-logo" src="logo.png" alt="YardKartz">
     <div>
       <div class="header-league">2026 Stock Predator Championship</div>
       <div class="header-sub">The Handle · Westville, IN</div>
@@ -247,7 +257,7 @@
       <!-- PHOTO -->
       <div class="card">
         <div class="card-title">Profile Photo</div>
-        <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Upload a photo that'll appear on your driver card. A good kart photo or helmet shot works great. Square or portrait crops look best.</p>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Upload a photo that'll appear on your driver card. A good kart photo or helmet shot works great. Square or portrait crops look best.</p>
         <div class="photo-upload-area" id="upload-area">
           <input type="file" id="f-photo" accept="image/jpeg,image/png,image/webp" onchange="onPhotoSelected(this)">
           <div id="upload-placeholder">
@@ -277,10 +287,10 @@
     <div class="success-icon">🏁</div>
     <div class="success-title" id="success-title">Profile Saved!</div>
     <div class="success-sub" id="success-sub">Your profile is live on the YardKartz drivers page.</div>
-    <div id="next-race-block" style="display:none;margin-top:32px;background:var(--asphalt-mid);border:1px solid var(--bdr);border-top:3px solid var(--orange);border-radius:12px;padding:24px 28px;max-width:380px;margin-left:auto;margin-right:auto;text-align:center;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--orange);margin-bottom:10px;">You're all set! See you at the next race —</div>
-      <div id="next-race-date" style="font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:900;color:var(--text);line-height:1;"></div>
-      <div id="next-race-name" style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-top:8px;"></div>
+    <div id="next-race-block" style="display:none;margin-top:32px;background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:12px;padding:24px 28px;max-width:380px;margin-left:auto;margin-right:auto;text-align:center;">
+      <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--red);margin-bottom:10px;">You're all set! See you at the next race —</div>
+      <div id="next-race-date" style="font-family:'Archivo',sans-serif;font-size:42px;font-weight:900;color:var(--white);line-height:1;"></div>
+      <div id="next-race-name" style="font-family:'Archivo',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:8px;"></div>
     </div>
   </div>
 
