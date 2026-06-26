@@ -4,6 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YardKartz — 2026 Stock Predator Championship</title>
+<meta name="description" content="YardKartz — backyard stock predator kart racing at The Handle Dirt Oval in Westville, IN. Live standings, points, schedule, driver profiles, race footage, and the official 2026 rulebook.">
+<link rel="canonical" href="https://yardkartz.com/">
+<link rel="icon" href="/logo.jpg">
+<link rel="apple-touch-icon" href="/logo.jpg">
+<meta name="theme-color" content="#E0231C">
+<!-- Open Graph (Facebook, iMessage, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="YardKartz">
+<meta property="og:title" content="YardKartz — 2026 Stock Predator Championship">
+<meta property="og:description" content="Backyard stock predator kart racing at The Handle Dirt Oval in Westville, IN. Live standings, points, schedule, driver profiles, and race footage.">
+<meta property="og:url" content="https://yardkartz.com/">
+<meta property="og:image" content="https://yardkartz.com/logo.jpg">
+<meta property="og:image:width" content="1078">
+<meta property="og:image:height" content="1002">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="YardKartz — 2026 Stock Predator Championship">
+<meta name="twitter:description" content="Backyard stock predator kart racing at The Handle Dirt Oval in Westville, IN. Live standings, points, schedule, and race footage.">
+<meta name="twitter:image" content="https://yardkartz.com/logo.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -836,7 +855,26 @@ function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-inner button').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  btn.classList.add('active');
+  if(!btn) btn = document.querySelector(`.nav-inner button[onclick*="'${id}'"]`);
+  if(btn) btn.classList.add('active');
+  // remember the current page so a refresh/pull-to-refresh stays put
+  try { history.replaceState(null, '', '#' + id); } catch(e) {}
+}
+
+// On load, restore whatever page the URL hash points to (set by showPage).
+function restorePage() {
+  const raw = (location.hash || '').replace('#', '');
+  if(!raw) return;
+  // Driver profile deep link: #driver/<id>
+  if(raw.startsWith('driver/')) {
+    const did = raw.slice('driver/'.length);
+    if(did) showDriverProfile(did);
+    return;
+  }
+  if(!document.getElementById('page-' + raw)) return;
+  showPage(raw);
+  if(raw === 'track') loadWeather();
+  if(raw === 'sponsors') loadSponsors();
 }
 
 function toggleRule(header) {
@@ -1123,15 +1161,59 @@ async function loadRecords(){
   }).join('');
 }
 
-async function loadVideos(){
-  const vids=await get('videos','select=*&order=created_at.desc');
+const YT_CHANNEL_ID = 'UCFSvAzzD1GsDA7fO_19ROJA';
+const ytIdOf = u => {
+  const m = (u||'').match(/(?:youtu\.be\/|v=|\/shorts\/|\/embed\/)([A-Za-z0-9_-]{11})/) || (u||'').match(/([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+};
+
+function renderVideos(vids){
   const g=document.getElementById('vid-grid');
+  if(!g) return;
   if(!vids.length){g.innerHTML='<div class="empty">No videos yet — add some in admin</div>';return;}
   g.innerHTML=vids.map(v=>{
-    const m=v.youtube_url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&\n?#]+)/);
-    const id=m?m[1]:null;
+    const id=ytIdOf(v.youtube_url);
     return `<div class="v-card" onclick="window.open('${v.youtube_url}','_blank')"><div class="v-thumb">${id?`<img src="https://img.youtube.com/vi/${id}/mqdefault.jpg" onerror="this.parentElement.innerHTML='<div class=v-play><svg viewBox=\\'0 0 24 24\\'><path d=\\'M8 5v14l11-7z\\'/></svg></div>'">`:`<div class="v-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>`}</div><div class="v-info"><div class="v-title">${v.title}</div><div class="v-meta">${v.duration||''}</div></div></div>`;
   }).join('');
+}
+
+// Pull any new uploads from the @yardkartz channel and add them to the DB.
+// Returns true if anything new was inserted. Safe to fail silently.
+async function syncVideosFromYouTube(existing){
+  try{
+    const rss = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`;
+    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rss));
+    const data = await res.json();
+    if(!data || !data.items || !data.items.length) return false;
+    const have = new Set(existing.map(v=>ytIdOf(v.youtube_url)).filter(Boolean));
+    const fresh = [];
+    for(const it of data.items){
+      const vid = ytIdOf(it.link || it.guid || '');
+      if(!vid || have.has(vid)) continue;
+      have.add(vid);
+      const title = ((it.title||'').split(/\s+#/)[0].replace(/\s{2,}/g,' ').trim()) || 'YardKartz';
+      let created = null;
+      if(it.pubDate){ const d = new Date(it.pubDate.replace(' ','T')); if(!isNaN(d)) created = d.toISOString(); }
+      fresh.push({ title, youtube_url:'https://www.youtube.com/watch?v='+vid, duration:'', created_at:created });
+    }
+    if(!fresh.length) return false;
+    await fetch(`${SURL}/rest/v1/videos`, {
+      method:'POST',
+      headers:{'apikey':SKEY,'Authorization':`Bearer ${SKEY}`,'Content-Type':'application/json','Prefer':'resolution=ignore-duplicates,return=minimal'},
+      body:JSON.stringify(fresh)
+    });
+    return true;
+  }catch(e){ console.warn('video sync skipped:', e); return false; }
+}
+
+async function loadVideos(){
+  let vids=await get('videos','select=*&order=created_at.desc');
+  renderVideos(vids);
+  // Background: catch any new channel uploads, then re-render if the list grew.
+  if(await syncVideosFromYouTube(vids)){
+    vids=await get('videos','select=*&order=created_at.desc');
+    renderVideos(vids);
+  }
 }
 
 
@@ -1319,6 +1401,7 @@ function backToDrivers() {
   document.querySelectorAll('.nav-inner button').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-drivers').classList.add('active');
   document.querySelector('.nav-inner button[onclick*="\'drivers\'"]').classList.add('active');
+  try { history.replaceState(null, '', '#drivers'); } catch(e) {}
 }
 
 const CUSTOM_NUMS = {
@@ -1363,6 +1446,8 @@ async function showDriverProfile(id) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-inner button').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-profile').classList.add('active');
+  // remember which driver so a refresh stays on this profile
+  try { history.replaceState(null, '', '#driver/' + id); } catch(e) {}
   document.getElementById('profile-content').innerHTML = '<div class="loading">Loading</div>';
 
   const [drivers, allResults, allRaces] = await Promise.all([
@@ -1599,6 +1684,7 @@ function dismissAnnouncement(id) {
 
 loadAnnouncement();
 loadHome(); loadDrivers(); loadPoints(); loadSchedule(); loadRecords(); loadVideos(); loadLatestVideo();
+restorePage();
 </script>
 </body>
 </html>
